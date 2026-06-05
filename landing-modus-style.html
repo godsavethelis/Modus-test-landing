@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Modus — единое пространство для мышления и знаний</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+  :root {
+    --bg:      #ffffff;
+    --bg-2:    #fafafa;
+    --bg-3:    #f3f3f3;
+    --ink:     #0a0a0a;
+    --muted:   #404040;
+    --faint:   #737373;
+    --line:    #ededed;
+    --line-2:  #e2e2e2;
+    --blue:    #0028ff;
+    --blue-2:  #0099ff;
+    --blue-soft:#eef1ff;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --maxw: 1180px;
+    --r: 8px;
+    --r-lg: 22px;
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:17px; line-height:1.55; font-weight:400;
+         letter-spacing:-0.01em; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  ::selection { background:var(--blue); color:#fff; }
+  img { display:block; max-width:100%; }
+  a { color:inherit; text-decoration:none; }
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px,4vw,40px); position:relative; }
+
+  /* eyebrow / mono label */
+  .eyebrow { font-family:var(--mono); font-size:12px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--blue); }
+
+  /* serif display */
+  .serif { font-family:var(--serif); font-weight:400; letter-spacing:-0.01em; line-height:1.04; }
+  .serif em { font-style:italic; color:var(--blue); }
+
+  /* ── NAV ── */
+  nav { position:fixed; inset:0 0 auto 0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+        padding:16px clamp(20px,4vw,40px); background:rgba(255,255,255,0.8); backdrop-filter:blur(14px); border-bottom:1px solid transparent; transition:border-color .3s; }
+  nav.scrolled { border-color:var(--line); }
+  .brand { display:flex; align-items:center; gap:9px; font-weight:600; font-size:18px; letter-spacing:-0.02em; }
+  .brand .mk { width:20px; height:20px; border-radius:6px; background:var(--ink); position:relative; }
+  .brand .mk::after { content:""; position:absolute; inset:6px 6px auto auto; width:6px; height:6px; border-radius:50%; background:var(--blue); }
+  .nav-links { display:flex; align-items:center; gap:28px; }
+  .nav-links a { font-size:14.5px; color:var(--muted); transition:color .2s; }
+  .nav-links a:hover { color:var(--ink); }
+  .nav-cta { background:var(--ink); color:#fff !important; padding:9px 18px; border-radius:var(--r); font-weight:500; font-size:14px; transition:background .2s; }
+  .nav-cta:hover { background:var(--blue); }
+
+  /* ── HERO ── */
+  .hero { padding:160px 0 70px; text-align:center; }
+  .hero .eyebrow { display:inline-block; margin-bottom:26px; }
+  .hero h1 { font-family:var(--serif); font-weight:400; font-size:clamp(42px,7vw,84px); line-height:1.0; letter-spacing:-0.015em; margin-bottom:26px; }
+  .hero h1 em { font-style:italic; }
+  .hero-sub { font-size:clamp(18px,2vw,21px); color:var(--muted); max-width:46ch; margin:0 auto 36px; line-height:1.5; }
+  .cta-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn-dark { background:var(--ink); color:#fff; padding:14px 26px; border-radius:var(--r); font-weight:500; font-size:15.5px; transition:background .2s, transform .2s; }
+  .btn-dark:hover { background:var(--blue); transform:translateY(-1px); }
+  .btn-ghost { background:#fff; color:var(--ink); border:1px solid var(--line-2); padding:14px 24px; border-radius:var(--r); font-weight:500; font-size:15.5px; transition:border-color .2s; }
+  .btn-ghost:hover { border-color:#c9c9c9; }
+
+  /* hero product visual */
+  .hero-visual { margin:64px auto 0; max-width:1060px; }
+  .frame { border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; background:var(--bg-2); box-shadow:0 30px 70px -40px rgba(10,10,20,0.3); }
+  .frame-bar { display:flex; align-items:center; gap:6px; padding:11px 16px; border-bottom:1px solid var(--line); background:#fff; }
+  .frame-bar i { width:9px; height:9px; border-radius:50%; background:#e0e0e0; }
+  .frame img { width:100%; }
+
+  /* hero soft backdrop + scene */
+  .hero { position:relative; }
+  .scene { border-radius:var(--r-lg); padding:clamp(20px,3.2vw,46px); position:relative;
+    background:
+      radial-gradient(60% 70% at 22% 20%, rgba(0,153,255,0.12), transparent 70%),
+      radial-gradient(60% 70% at 82% 30%, rgba(255,170,110,0.13), transparent 70%),
+      radial-gradient(70% 80% at 50% 95%, rgba(120,130,255,0.12), transparent 70%),
+      linear-gradient(160deg,#eef3fb,#fbf3ec); }
+  .scene .frame { box-shadow:0 36px 80px -42px rgba(10,10,30,0.45); }
+
+  /* floating objects around hero */
+  .floaties { position:absolute; left:0; right:0; top:0; height:760px; z-index:2; pointer-events:none; }
+  .fcard { position:absolute; background:#fff; border:1px solid var(--line); border-radius:14px;
+    box-shadow:0 26px 56px -30px rgba(10,10,30,0.42); padding:13px 14px; width:210px; }
+  .fcard .ft { font-size:12.5px; font-weight:600; letter-spacing:-0.01em; }
+  .fcard .fl { height:6px; border-radius:3px; background:#eee; margin:6px 0; }
+  .fcard .fl.s{width:65%;} .fcard .fl.m{width:82%;}
+  .fcard .meta { font-family:var(--mono); font-size:10.5px; color:var(--faint); }
+  /* voice pill */
+  .vpill { display:flex; align-items:center; gap:8px; background:#0a0a0a; color:#fff; border-radius:100px; padding:6px 11px; }
+  .vpill .rec { width:7px; height:7px; border-radius:50%; background:#ff4d4d; }
+  .vpill .wave { display:flex; align-items:center; gap:2px; height:13px; }
+  .vpill .wave i { width:2px; background:#fff; border-radius:2px; opacity:.85; }
+  .vpill .t { font-family:var(--mono); font-size:11px; margin-left:auto; }
+  /* mini canvas */
+  .mcanvas { display:flex; gap:6px; margin-top:8px; }
+  .mcanvas span { width:34px; height:26px; border-radius:6px; }
+  /* pdf chip */
+  .pdfbadge { display:inline-block; font-family:var(--mono); font-size:9.5px; font-weight:600; color:#fff; background:#e0492a; border-radius:3px; padding:2px 5px; }
+
+  .fc-1 { left:clamp(6px,3vw,40px); top:118px; width:184px; animation:fl1 7s ease-in-out infinite; }
+  .fc-2 { right:clamp(6px,3vw,40px); top:96px; width:218px; animation:fl2 8.4s ease-in-out infinite; }
+  .fc-3 { left:clamp(6px,4vw,70px); bottom:36px; width:170px; animation:fl3 9s ease-in-out infinite; }
+  .fc-4 { right:clamp(6px,4vw,64px); bottom:24px; width:206px; animation:fl4 7.6s ease-in-out infinite; }
+  @keyframes fl1{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-16px) rotate(-2deg);}}
+  @keyframes fl2{0%,100%{transform:translateY(0) rotate(5deg);}50%{transform:translateY(-20px) rotate(2deg);}}
+  @keyframes fl3{0%,100%{transform:translateY(0) rotate(4deg);}50%{transform:translateY(-13px) rotate(7deg);}}
+  @keyframes fl4{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-18px) rotate(-2deg);}}
+  @media (max-width:1080px){ .floaties{display:none;} }
+
+  /* collab cursors mock */
+  .collab { position:relative; width:100%; max-width:440px; background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 18px 44px -28px rgba(10,10,30,0.4); padding:22px; }
+  .collab .tag { position:absolute; font-size:11px; font-weight:600; color:#fff; border-radius:100px; padding:3px 9px; white-space:nowrap; }
+  .collab .cur { position:absolute; width:0;height:0; border-left:7px solid transparent; border-right:7px solid transparent; }
+  /* library grid mock */
+  .libgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; width:100%; max-width:440px; }
+  .libgrid .lc { background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px; box-shadow:0 10px 26px -20px rgba(10,10,30,0.3); }
+  .libgrid .lc .th { height:54px; border-radius:6px; margin-bottom:8px; }
+  .libgrid .lc .nm { font-size:11px; font-weight:500; }
+  .libgrid .lc .mt { font-family:var(--mono); font-size:9px; color:var(--faint); }
+
+  /* model picker mock */
+  .pad-indigo { background:linear-gradient(160deg,#eef0ff,#e6e9ff); }
+  .mpick { width:100%; max-width:330px; background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 22px 50px -28px rgba(20,20,60,0.4); padding:8px; }
+  .mpick .srch { display:flex; align-items:center; gap:8px; padding:9px 11px; border-bottom:1px solid var(--line); font-size:13px; color:var(--faint); margin-bottom:4px; }
+  .mpick .row { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:9px; font-size:14px; color:var(--ink); }
+  .mpick .row.sel { background:#f2f3ff; font-weight:500; }
+  .mpick .row .ic { width:24px; height:24px; border-radius:7px; background:#f1f1f4; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .mpick .row.sel .ic { background:#e2e5ff; }
+  .mpick .row .dot { margin-left:auto; width:7px; height:7px; border-radius:50%; background:var(--blue); }
+  .msel { margin-top:10px; display:flex; align-items:center; gap:9px; background:#eef0ff; border-radius:100px; padding:9px 15px; font-size:13.5px; font-weight:500; }
+  .msel .cv { margin-left:auto; color:var(--faint); }
+
+  /* share / publish mock */
+  .sharecard { width:100%; max-width:400px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 22px 50px -28px rgba(20,20,60,0.4); overflow:hidden; }
+  .sh-tabs { display:flex; gap:24px; padding:16px 20px 0; border-bottom:1px solid var(--line); }
+  .sh-tabs .tb { font-size:14px; color:var(--faint); padding-bottom:12px; }
+  .sh-tabs .tb.act { color:var(--ink); font-weight:600; box-shadow:0 2px 0 var(--ink); }
+  .sh-url { display:flex; gap:8px; padding:18px 20px 10px; align-items:center; }
+  .sh-url .u { flex:1; background:#f5f5f7; border-radius:8px; padding:10px 12px; font-size:12.5px; color:var(--muted); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+  .sh-url .ib { width:36px; height:36px; flex-shrink:0; border:1px solid var(--line); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .sh-vis { display:flex; align-items:center; gap:9px; padding:4px 20px 18px; font-size:13.5px; color:var(--blue); font-weight:500; }
+  .sh-foot { border-top:1px solid var(--line); padding:14px 20px; text-align:center; font-size:14px; color:#e0492a; font-weight:500; }
+
+  /* editor doc mock with toolbar */
+  .docmock { position:relative; width:100%; max-width:440px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 22px 50px -28px rgba(10,10,30,0.4); padding:26px 26px 30px; }
+  .docmock .dt { font-size:18px; font-weight:600; color:#c2c2c2; margin-bottom:14px; }
+  .docmock p { font-size:13px; color:#3a3a3a; line-height:1.6; margin:0 0 10px; }
+  .docmock .gh { color:#cfcfcf; margin-right:8px; font-weight:600; }
+  .docmock .hl { background:#d9e6ff; border-radius:2px; padding:0 1px; }
+  .fmtbar { display:inline-flex; align-items:center; gap:3px; background:#fff; border:1px solid var(--line); border-radius:11px; box-shadow:0 14px 34px -16px rgba(10,10,30,0.42); padding:6px; margin:8px 0; }
+  .fmtbar .sel { border:1px solid var(--line); border-radius:8px; padding:6px 10px; font-size:12.5px; display:flex; align-items:center; gap:7px; }
+  .fmtbar .bt { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:13.5px; color:var(--ink); }
+  .fmtbar .bt.hl { background:#fff1b8; }
+  .fmtbar .sep { width:1px; height:18px; background:var(--line); margin:0 4px; }
+
+  /* stickers (collab) */
+  .stick { position:absolute; width:62px; height:54px; border-radius:5px; padding:7px; font-size:8.5px; line-height:1.25; box-shadow:0 9px 18px -10px rgba(0,0,0,0.32); }
+
+  /* made-for pills */
+  .madefor { display:flex; flex-wrap:wrap; gap:12px; margin-top:38px; }
+  .mf-pill { display:inline-flex; align-items:center; gap:10px; border:1.5px dashed var(--line-2); border-radius:100px; padding:11px 20px; font-size:16px; font-weight:500; color:var(--ink); transition:border-color .2s, background .2s; }
+  .mf-pill:hover { border-color:#c7c7c7; background:var(--bg-2); }
+  .mf-pill .em { font-size:18px; }
+  .mf-pill .ar { color:var(--faint); margin-left:2px; }
+
+  /* file types grid */
+  .filetypes { display:grid; grid-template-columns:repeat(4,1fr); gap:20px 28px; margin-top:50px; }
+  .ftt { display:flex; align-items:center; gap:13px; font-size:16px; color:var(--ink); }
+  .ftt .fi { width:30px; height:30px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:19px; }
+
+  /* hub diagram */
+  .hubwrap { margin-top:48px; }
+  .hub { width:100%; max-width:920px; margin:0 auto; display:block; }
+  .hub .ln { stroke:#dcdcdc; stroke-width:1.6; stroke-dasharray:5 6; fill:none; }
+  .hub .node-bg { fill:#fff; stroke:#ececec; }
+  .hub .ctr { fill:#0a0a0a; }
+  .hub text.em { font-size:22px; }
+  .hub text.lbl { font-family:var(--mono); font-size:11px; fill:var(--faint); }
+
+  /* ── TRUST ── */
+  .trust { padding:64px 0 0; text-align:center; }
+  .trust .lbl { font-family:var(--mono); font-size:12px; letter-spacing:0.5px; color:var(--faint); text-transform:uppercase; }
+  .trust-row { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:20px; }
+  .chip { font-size:14px; color:var(--muted); background:var(--bg-3); border-radius:100px; padding:8px 16px; }
+
+  /* ── SECTION SCAFFOLD ── */
+  section.block { padding:clamp(90px,12vw,150px) 0 0; }
+  .sec-head { max-width:30ch; }
+  .sec-head.center { margin:0 auto; text-align:center; }
+  .sec-head .eyebrow { display:block; margin-bottom:18px; }
+  .sec-head h2 { font-family:var(--serif); font-weight:400; font-size:clamp(32px,4.6vw,56px); line-height:1.03; letter-spacing:-0.01em; }
+  .sec-head h2 em { font-style:italic; color:var(--blue); }
+  .sec-head p { font-size:18px; color:var(--muted); margin-top:18px; line-height:1.55; max-width:54ch; }
+  .sec-head.center p { margin-left:auto; margin-right:auto; }
+
+  /* ── BENTO (all-in-one) ── */
+  .bento { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:56px; }
+  .bento .cell { background:var(--bg-2); border:1px solid var(--line); border-radius:var(--r-lg); padding:30px 26px; min-height:210px; display:flex; flex-direction:column; justify-content:space-between; transition:border-color .3s, transform .3s; }
+  .bento .cell:hover { border-color:var(--line-2); transform:translateY(-3px); }
+  .bento .cell.wide { grid-column:span 2; }
+  .cell .ic { width:40px; height:40px; border-radius:10px; background:#fff; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .cell h4 { font-size:18px; font-weight:600; letter-spacing:-0.02em; }
+  .cell p { font-size:14.5px; color:var(--faint); margin-top:6px; line-height:1.5; }
+
+  /* ── FEATURE ROW ── */
+  .feat { display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,6vw,80px); align-items:center; padding:clamp(60px,8vw,110px) 0 0; }
+  .feat.rev .feat-media { order:2; }
+  .feat-text .eyebrow { display:block; margin-bottom:16px; }
+  .feat-text h3 { font-family:var(--serif); font-weight:400; font-size:clamp(28px,3.6vw,46px); line-height:1.05; letter-spacing:-0.01em; }
+  .feat-text h3 em { font-style:italic; color:var(--blue); }
+  .feat-text p { font-size:18px; color:var(--muted); margin-top:16px; line-height:1.55; max-width:42ch; }
+  .feat-list { margin-top:22px; display:grid; gap:10px; }
+  .feat-list li { list-style:none; font-size:15.5px; color:var(--muted); padding-left:22px; position:relative; }
+  .feat-list li::before { content:""; position:absolute; left:0; top:8px; width:7px; height:7px; border-radius:50%; background:var(--blue); }
+
+  .feat-media .frame { box-shadow:0 24px 60px -36px rgba(10,10,20,0.32); }
+  /* tinted backdrop card for mocks */
+  .media-pad { border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(22px,3vw,40px); display:flex; align-items:center; justify-content:center; min-height:340px; }
+  .pad-blue { background:linear-gradient(160deg,#f4f7ff,#eef1ff); }
+  .pad-gray { background:linear-gradient(160deg,#fafafa,#f2f2f2); }
+
+  /* CSS mocks */
+  .mock { width:100%; max-width:420px; background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 18px 40px -28px rgba(10,10,20,0.4); padding:18px; }
+  .m-line { height:10px; border-radius:4px; background:#eee; margin:8px 0; }
+  .m-line.h { height:15px; width:50%; background:#e4e4e4; }
+  .m-line.w80{width:80%;} .m-line.w65{width:65%;}
+  .slash { margin-top:14px; border:1px solid var(--line); border-radius:10px; padding:7px; }
+  .slash .si { display:flex; align-items:center; gap:9px; padding:7px 9px; border-radius:7px; font-size:13px; color:var(--ink); }
+  .slash .si.act { background:var(--blue-soft); color:var(--blue); font-weight:500; }
+  .slash .si .d { width:18px; height:18px; border-radius:5px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:11px; }
+  .slash .si.act .d { background:#dde3ff; }
+  .ai-q { font-size:13.5px; background:#f4f4f5; border-radius:12px 12px 12px 4px; padding:10px 13px; line-height:1.4; }
+  .ai-chips { display:flex; gap:6px; margin:11px 0; }
+  .ai-chips .c { font-size:11.5px; display:inline-flex; align-items:center; gap:5px; border:1px solid var(--line-2); border-radius:100px; padding:4px 10px; }
+  .ai-chips .c .dot { width:6px; height:6px; border-radius:2px; }
+  .ai-r { font-size:13px; color:var(--faint); border-left:2px solid var(--blue); padding-left:11px; margin-top:10px; line-height:1.5; }
+
+  /* ── AUDIENCE ── */
+  .aud { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:54px; }
+  .aud a { display:block; border:1px solid var(--line); border-radius:var(--r-lg); padding:32px 28px; background:var(--bg-2); transition:border-color .3s, transform .3s; }
+  .aud a:hover { border-color:var(--line-2); transform:translateY(-3px); }
+  .aud .tag { font-family:var(--mono); font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--blue); }
+  .aud h4 { font-family:var(--serif); font-size:26px; font-weight:400; margin-top:12px; letter-spacing:-0.01em; }
+  .aud p { font-size:14.5px; color:var(--faint); margin-top:8px; line-height:1.5; }
+  .aud .go { margin-top:18px; font-size:14px; color:var(--ink); font-weight:500; }
+  .aud .go::after { content:" →"; color:var(--blue); }
+
+  /* ── CTA ── */
+  .closer { padding:clamp(110px,14vw,180px) 0 clamp(80px,9vw,120px); text-align:center; }
+  .closer h2 { font-family:var(--serif); font-weight:400; font-size:clamp(38px,6vw,76px); line-height:1.0; letter-spacing:-0.01em; max-width:18ch; margin:0 auto 30px; }
+  .closer h2 em { font-style:italic; color:var(--blue); }
+  .closer-note { font-family:var(--mono); font-size:12.5px; color:var(--faint); margin-top:18px; }
+
+  footer { border-top:1px solid var(--line); padding:30px clamp(20px,4vw,40px); max-width:var(--maxw); margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:13.5px; color:var(--faint); }
+
+  /* ── micro-interactions ── */
+  .btn-dark, .nav-cta, .hero-cta { transition: background .2s ease, color .2s ease, transform .22s cubic-bezier(.2,.7,.2,1), box-shadow .22s ease; }
+  .btn-dark:hover, .hero-cta:hover { transform: translateY(-2px) scale(1.015); box-shadow:0 16px 32px -14px rgba(10,10,30,0.5); }
+  .btn-dark:active, .btn-ghost:active, .hero-cta:active { transform: translateY(0) scale(.985); }
+  .btn-ghost { transition: border-color .2s, transform .22s cubic-bezier(.2,.7,.2,1); }
+  .btn-ghost:hover { transform: translateY(-2px); }
+
+  /* arrow nudges */
+  .mf-pill .ar { display:inline-block; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
+  .mf-pill:hover .ar { transform: translateX(5px); }
+  .aud .go::after { display:inline-block; transition: transform .24s cubic-bezier(.2,.7,.2,1); }
+  .aud a:hover .go::after { transform: translateX(5px); }
+
+  /* made-for pill lift */
+  .mf-pill { transition: border-color .2s, background .2s, transform .22s cubic-bezier(.2,.7,.2,1); }
+  .mf-pill:hover { transform: translateY(-2px); }
+
+  /* feature media subtle zoom + lift */
+  .feat-media .frame img { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .feat:hover .feat-media .frame img { transform: scale(1.02); }
+  .feat-media .scene, .feat-media .media-pad { transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+  .feat:hover .feat-media .scene, .feat:hover .feat-media .media-pad { transform: translateY(-5px); }
+
+  /* card easing + shadow on hover */
+  .bento .cell, .aud a, .vcard { transition: transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s ease, box-shadow .3s ease; }
+  .bento .cell:hover, .vcard:hover, .aud a:hover { box-shadow:0 20px 44px -28px rgba(10,10,30,0.26); }
+  .bento .cell .ic { transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+  .bento .cell:hover .ic { transform: translateY(-2px) rotate(-5deg); }
+
+  /* nav link underline grow */
+  .nav-links a:not(.nav-cta) { position:relative; }
+  .nav-links a:not(.nav-cta)::after { content:""; position:absolute; left:0; bottom:-4px; height:1.5px; width:0; background:var(--blue); transition: width .26s cubic-bezier(.2,.7,.2,1); }
+  .nav-links a:not(.nav-cta):hover::after { width:100%; }
+
+  /* model picker row hover */
+  .mpick .row { transition: background .2s ease; }
+  .mpick .row:hover { background:#f6f7ff; }
+
+  /* hero floaties entrance */
+  .floaties { opacity:0; animation: floatIn 1.1s .55s ease forwards; }
+  @keyframes floatIn { from{opacity:0;} to{opacity:1;} }
+
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity:1; transform:none; }
+
+  @media (max-width:880px) {
+    .bento{grid-template-columns:1fr 1fr;} .bento .cell.wide{grid-column:span 2;}
+    .feat{grid-template-columns:1fr; gap:30px;} .feat.rev .feat-media{order:0;}
+    .aud{grid-template-columns:1fr;}
+    .filetypes{grid-template-columns:repeat(2,1fr);}
+    .nav-links a:not(.nav-cta){display:none;}
+    .media-pad{min-height:auto; padding:24px;}
+    .sec-head{max-width:none;}
+    .feat-text p{max-width:none;}
+  }
+  @media (max-width:560px) {
+    .hero{padding:118px 0 48px;}
+    .hero h1{font-size:clamp(36px,9vw,52px);}
+    .bento{grid-template-columns:1fr; gap:12px;} .bento .cell, .bento .cell.wide{grid-column:span 1; min-height:auto;}
+    .madefor{gap:9px;} .mf-pill{font-size:14.5px; padding:10px 16px;}
+    .filetypes{grid-template-columns:1fr;}
+    .mpick, .sharecard, .docmock{max-width:none; width:100%;}
+    .collab{overflow:hidden;}
+    .hub text.lbl{display:none;}
+    .scene{padding:14px;}
+    .closer h2{font-size:clamp(34px,9vw,52px);}
+    h2{font-size:clamp(28px,7vw,40px) !important;}
+  }
+  @media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important;} .reveal{opacity:1!important;transform:none!important;} }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="brand"><span class="mk"></span>Modus</a>
+  <div class="nav-links">
+    <a href="#how">Возможности</a>
+    <a href="#ai">AI</a>
+    <a href="#who">Для кого</a>
+    <a href="#signup" class="nav-cta">Записаться</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="floaties" aria-hidden="true">
+    <div class="fcard fc-1">
+      <div class="ft">Холст · Урок 2</div>
+      <div class="mcanvas"><span style="background:#ffd9c2"></span><span style="background:#cfe0ff"></span><span style="background:#d8f5dd"></span></div>
+    </div>
+    <div class="fcard fc-2">
+      <div class="ft">Запись урока</div>
+      <div class="vpill" style="margin-top:8px">
+        <span class="rec"></span><span>Запись</span>
+        <span class="wave"><i style="height:5px"></i><i style="height:11px"></i><i style="height:7px"></i><i style="height:13px"></i><i style="height:6px"></i><i style="height:10px"></i><i style="height:8px"></i></span>
+        <span class="t">12:30</span>
+      </div>
+    </div>
+    <div class="fcard fc-3">
+      <div><span class="pdfbadge">PDF</span></div>
+      <div class="fl m" style="margin-top:10px"></div><div class="fl"></div><div class="fl s"></div>
+      <div class="meta" style="margin-top:8px">источник.pdf</div>
+    </div>
+    <div class="fcard fc-4">
+      <div class="ft">AI · саммари готово</div>
+      <div class="fl m" style="margin-top:8px"></div><div class="fl s"></div>
+      <div class="meta" style="margin-top:7px">по холсту + документу →</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <span class="eyebrow">Единое пространство для знаний</span>
+    <h1>Думайте, создавайте<br>и решайте — <em>в едином пространстве</em></h1>
+    <p class="hero-sub">Документ, холст и AI-чат вместе. Рядом с вашим личным AI, который знает всё, что вы создали в Modus.</p>
+    <div class="cta-row">
+      <a href="#signup" class="btn-dark">Записаться на онбординг</a>
+      <a href="#how" class="btn-ghost">Как это работает →</a>
+    </div>
+    <div class="hero-visual">
+      <div class="scene">
+        <div class="frame">
+          <div class="frame-bar"><i></i><i></i><i></i></div>
+          <img src="modus-split.png" alt="Modus — документ, холст и AI в одном окне" />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- MADE FOR -->
+  <section class="block" style="padding-top:clamp(70px,9vw,110px);">
+    <div class="sec-head reveal">
+      <h2 style="margin:0;">Создан для…</h2>
+    </div>
+    <div class="madefor reveal">
+      <span class="mf-pill"><span class="em">🎓</span> Преподаватели <span class="ar">→</span></span>
+      <span class="mf-pill"><span class="em">🔬</span> Исследователи <span class="ar">→</span></span>
+      <span class="mf-pill"><span class="em">📐</span> Продакт-менеджеры <span class="ar">→</span></span>
+      <span class="mf-pill"><span class="em">📊</span> Аналитики <span class="ar">→</span></span>
+      <span class="mf-pill"><span class="em">✍️</span> Авторы <span class="ar">→</span></span>
+      <span class="mf-pill"><span class="em">📚</span> Студенты <span class="ar">→</span></span>
+    </div>
+  </section>
+
+  <!-- ALL IN ONE / BENTO -->
+  <section class="block" id="how">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Всё в одном пространстве</span>
+      <h2>Холсты, документы и <em>AI-чаты</em> — рядом, без переключений</h2>
+    </div>
+    <div class="bento reveal">
+      <div class="cell wide">
+        <div class="ic">🪧</div>
+        <div><h4>Бесконечный холст</h4><p>Раскладывайте идеи, связывайте объекты, рисуйте — как в Miro.</p></div>
+      </div>
+      <div class="cell">
+        <div class="ic">📝</div>
+        <div><h4>Документ</h4><p>Блочный редактор как в Notion.</p></div>
+      </div>
+      <div class="cell">
+        <div class="ic">🤖</div>
+        <div><h4>AI-чат</h4><p>Прямо в контексте работы.</p></div>
+      </div>
+      <div class="cell">
+        <div class="ic">▥</div>
+        <div><h4>Сплит-режим</h4><p>До трёх панелей в одном окне.</p></div>
+      </div>
+      <div class="cell wide">
+        <div class="ic">🔗</div>
+        <div><h4>Единый контекст</h4><p>Объект живёт сквозь документ, холст и AI — без копий и переносов.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: CANVAS -->
+  <section class="block">
+    <div class="feat reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Холст</span>
+        <h3>Бесконечный холст. <em>Думайте визуально.</em></h3>
+        <p>Раскладывайте мысли в пространстве, связывайте идеи стрелками, собирайте материалы и работайте с ними вместе.</p>
+        <ul class="feat-list">
+          <li>Стикеры, фигуры, текст, стрелки и рисование</li>
+          <li>Изображения, видео, аудио и PDF прямо на холсте</li>
+          <li>Фреймы и группировка для структуры</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="scene"><div class="frame"><img src="modus-split.png" alt="Холст Modus" /></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: EDITOR -->
+  <section class="block">
+    <div class="feat rev reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Документ</span>
+        <h3>Пишите документы <em>и быстрые заметки.</em></h3>
+        <p>Блочный редактор как в Notion: заголовки, списки, таблицы, код и медиа. Слэш-меню под рукой.</p>
+        <ul class="feat-list">
+          <li>Заголовки, списки, таблицы, цитаты, код</li>
+          <li>Изображения, аудио и видео в тексте</li>
+          <li>Комментарии и история версий</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-gray">
+          <div class="docmock">
+            <div class="dt">Вторник, 11 мая</div>
+            <p><span class="gh">+ ⠿</span>Утро началось с трёх страниц заметок — мысли наконец улеглись по местам. Давно собирался разложить идею недели, и сегодня она встала по полочкам.</p>
+            <div class="fmtbar">
+              <span class="sel">Обычный текст ▾</span>
+              <span class="sep"></span>
+              <span class="bt" style="font-weight:700">B</span>
+              <span class="bt" style="font-style:italic">I</span>
+              <span class="bt" style="text-decoration:underline">U</span>
+              <span class="bt" style="text-decoration:line-through">S</span>
+              <span class="bt">🔗</span>
+              <span class="bt hl">A</span>
+              <span class="bt">&lt;/&gt;</span>
+            </div>
+            <p>Вынес на холст то, что крутилось в голове, <span class="hl">и сразу стало видно, где пробел</span>. Связал заметку с источником — теперь всё в едином пространстве.</p>
+            <p style="color:#bdbdbd">Вечером перечитал и добавил пару мыслей на полях…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: AI IN CONTEXT (hero feature) -->
+  <section class="block" id="ai">
+    <div class="feat reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Личный AI</span>
+        <h3>AI, который живёт там, <em>где ваша работа.</em></h3>
+        <p>Он уже знает все ваши объекты. Прикрепите холст или документ — AI читает их сам, без копирования контекста между приложениями.</p>
+        <ul class="feat-list">
+          <li>Поиск и ответы по вашим документам и холстам</li>
+          <li>Никакого «вставь сюда контекст» — он уже внутри</li>
+          <li>Лучшие модели: YandexGPT, Qwen и другие</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-blue">
+          <div class="mock">
+            <div class="ai-q">Сделай саммари этого холста и документа со ссылками</div>
+            <div class="ai-chips">
+              <span class="c"><span class="dot" style="background:#0099ff"></span> холст</span>
+              <span class="c"><span class="dot" style="background:var(--blue)"></span> документ</span>
+            </div>
+            <div class="ai-r">AI читает прикреплённые объекты сам и отвечает с опорой на них…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: AI MODELS -->
+  <section class="block">
+    <div class="feat rev reveal">
+      <div class="feat-text">
+        <span class="eyebrow">AI-модели</span>
+        <h3>Лучшие AI-модели — <em>в едином пространстве.</em></h3>
+        <p>Переключайтесь между моделями в один клик под конкретную задачу. Без отдельных подписок и переноса контекста.</p>
+        <ul class="feat-list">
+          <li>YandexGPT, Qwen, Claude, ChatGPT и другие</li>
+          <li>Подключите свои модели по ключу (BYOK)</li>
+          <li>Один контекст — любая модель</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-indigo">
+          <div class="mpick">
+            <div class="srch">🔍 Поиск модели…</div>
+            <div class="row sel"><span class="ic">✦</span> YandexGPT 5.1 Pro <span class="dot"></span></div>
+            <div class="row"><span class="ic">✦</span> YandexGPT 5 Lite</div>
+            <div class="row"><span class="ic">◓</span> Alice AI LLM</div>
+            <div class="row"><span class="ic">◈</span> Qwen3 235B</div>
+            <div class="row"><span class="ic">✦</span> Claude Opus <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:1px 6px;">подключить</span></div>
+            <div class="row"><span class="ic">◉</span> ChatGPT (GPT-5) <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:1px 6px;">подключить</span></div>
+            <div class="msel"><span class="ic" style="width:22px;height:22px;border-radius:6px;background:#e2e5ff;display:inline-flex;align-items:center;justify-content:center;font-size:12px">✦</span> YandexGPT 5.1 Pro <span class="cv">▾</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: SPLIT -->
+  <section class="block">
+    <div class="feat reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Сплит-режим</span>
+        <h3>Сплит-режим — <em>три модальности в одном окне.</em></h3>
+        <p>Документ слева, холст в центре, AI справа. Перетаскивайте объекты между панелями — контекст не теряется.</p>
+        <ul class="feat-list">
+          <li>До трёх панелей одновременно</li>
+          <li>Перенос объектов между режимами</li>
+          <li>Показывайте собеседнику только нужную панель</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="scene"><div class="frame"><img src="modus-split.png" alt="Сплит-режим Modus" /></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: COLLABORATION -->
+  <section class="block">
+    <div class="feat rev reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Совместная работа</span>
+        <h3>Работайте над холстом и документом <em>вместе.</em></h3>
+        <p>Курсоры участников в реальном времени, комментарии и обсуждение прямо на объекте.</p>
+        <ul class="feat-list">
+          <li>Курсоры и стикеры участников в реальном времени</li>
+          <li>Комментарии на холсте и в документе</li>
+          <li>История версий и шеринг по ссылке</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-gray">
+          <div class="collab" style="min-height:280px; background:#fbfbfc; padding:0;">
+            <span style="position:absolute; left:24px; top:26px; width:122px; background:#fff; border:1px solid #ececef; border-radius:8px; box-shadow:0 8px 18px -12px rgba(0,0,0,.28); padding:11px; transform:rotate(-2deg);">
+              <span style="display:block;height:7px;width:60%;background:#e4e4ea;border-radius:3px;margin-bottom:8px;"></span>
+              <span style="display:block;height:5px;background:#eee;border-radius:3px;margin:4px 0;"></span>
+              <span style="display:block;height:5px;width:85%;background:#eee;border-radius:3px;margin:4px 0;"></span>
+              <span style="display:block;height:5px;width:70%;background:#eee;border-radius:3px;margin:4px 0;"></span>
+            </span>
+            <span style="position:absolute; right:32px; top:30px; width:98px; height:66px; border-radius:8px; background:linear-gradient(135deg,#ffd9c2,#ffc2a8); box-shadow:0 8px 18px -12px rgba(0,0,0,.28); transform:rotate(3deg);"></span>
+            <span class="stick" style="background:#fff3b0; left:170px; top:104px; transform:rotate(-4deg);">Гипотеза: тьюторы →</span>
+            <span class="stick" style="background:#c2e7ff; left:58px; top:158px; transform:rotate(3deg);">Сначала холст</span>
+            <span class="stick" style="background:#ffd6e0; right:78px; bottom:34px; transform:rotate(-2deg);">AI: саммари</span>
+            <span class="cur" style="border-bottom:12px solid #2962ff; left:62%; top:128px; transform:rotate(-20deg);"></span>
+            <span class="tag" style="background:#2962ff; left:64%; top:146px;">Аня</span>
+            <span class="cur" style="border-bottom:12px solid #ff7a00; left:30%; bottom:62px; transform:rotate(-20deg);"></span>
+            <span class="tag" style="background:#ff7a00; left:32%; bottom:46px;">Миша</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: PUBLISH / SHARE -->
+  <section class="block">
+    <div class="feat reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Шеринг</span>
+        <h3>Делитесь и публикуйте <em>одной ссылкой.</em></h3>
+        <p>Пригласите команду в холст или документ — или опубликуйте по ссылке для всех. Вы решаете, кто и что видит.</p>
+        <ul class="feat-list">
+          <li>Шеринг по ссылке и приглашение участников</li>
+          <li>Публикация страницы в веб</li>
+          <li>Гибкие права доступа</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-gray">
+          <div class="sharecard">
+            <div class="sh-tabs"><span class="tb">Пригласить</span><span class="tb act">Опубликовать</span></div>
+            <div class="sh-url">
+              <span class="u">https://modusapp.ru/share/canvas/holst-7490</span>
+              <span class="ib">🔗</span><span class="ib">🌐</span>
+            </div>
+            <div class="sh-vis">👁 Все, у кого есть ссылка, могут видеть эту страницу</div>
+            <div class="sh-foot">Снять с публикации</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: VOICE / ASR -->
+  <section class="block">
+    <div class="feat rev reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Голос</span>
+        <h3>Говорите — Modus <em>расшифрует.</em></h3>
+        <p>Запишите голосовую заметку или урок — AI превратит её в текст и краткое саммари. Запросы к AI тоже можно задавать голосом.</p>
+        <ul class="feat-list">
+          <li>Транскрипция аудио в текст</li>
+          <li>Саммари из записи встречи или урока</li>
+          <li>Голосовой ввод запросов к AI</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-blue">
+          <div class="mock">
+            <div class="vpill"><span class="rec"></span><span>Запись</span>
+              <span class="wave"><i style="height:5px"></i><i style="height:12px"></i><i style="height:7px"></i><i style="height:14px"></i><i style="height:6px"></i><i style="height:11px"></i><i style="height:9px"></i><i style="height:13px"></i><i style="height:6px"></i></span>
+              <span class="t">12:30</span>
+            </div>
+            <div class="m-line" style="margin-top:14px"></div><div class="m-line w80"></div><div class="m-line w65"></div>
+            <div class="ai-r" style="margin-top:12px">Саммари: 3 ключевых вывода и список задач →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE: LIBRARY -->
+  <section class="block">
+    <div class="feat reveal">
+      <div class="feat-text">
+        <span class="eyebrow">Библиотека</span>
+        <h3>Соберите всё <em>в едином пространстве.</em></h3>
+        <p>Холсты, документы, AI-чаты, PDF и файлы — в Библиотеке с поиском, избранным и фильтрами по типу.</p>
+        <ul class="feat-list">
+          <li>Грид всех объектов с превью</li>
+          <li>Избранное и фильтры по типу и автору</li>
+          <li>Хабы для проектов и команд</li>
+        </ul>
+      </div>
+      <div class="feat-media">
+        <div class="media-pad pad-gray">
+          <div class="libgrid">
+            <div class="lc"><div class="th" style="background:linear-gradient(135deg,#ffe0cc,#ffd0b0)"></div><div class="nm">Урок 2</div><div class="mt">холст</div></div>
+            <div class="lc"><div class="th" style="background:linear-gradient(135deg,#d9e6ff,#c2d6ff)"></div><div class="nm">Конспект</div><div class="mt">документ</div></div>
+            <div class="lc"><div class="th" style="background:linear-gradient(135deg,#e6f7e9,#cfeed6)"></div><div class="nm">AI-чат</div><div class="mt">чат</div></div>
+            <div class="lc"><div class="th" style="background:linear-gradient(135deg,#f0e6ff,#e1ccff)"></div><div class="nm">Источник</div><div class="mt">pdf</div></div>
+            <div class="lc"><div class="th" style="background:linear-gradient(135deg,#fff0d9,#ffe6bf)"></div><div class="nm">Мудборд</div><div class="mt">холст</div></div>
+            <div class="lc"><div class="th" style="background:linear-gradient(135deg,#ffe0e6,#ffccd6)"></div><div class="nm">Спека</div><div class="mt">документ</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUB DIAGRAM -->
+  <section class="block">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Единый контекст</span>
+      <h2>Все объекты — <em>в одном пространстве.</em></h2>
+      <p>Документ, холст, AI-чат, PDF, изображения и видео живут вместе и связаны между собой — без копий и переключений.</p>
+    </div>
+    <div class="hubwrap reveal">
+      <svg class="hub" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- connectors -->
+        <path class="ln" d="M170 80 C 330 80, 360 230, 454 230"/>
+        <path class="ln" d="M170 180 C 330 180, 370 230, 454 230"/>
+        <path class="ln" d="M170 290 C 330 290, 370 230, 454 230"/>
+        <path class="ln" d="M170 390 C 330 390, 360 230, 454 230"/>
+        <path class="ln" d="M830 80 C 670 80, 640 230, 546 230"/>
+        <path class="ln" d="M830 180 C 670 180, 630 230, 546 230"/>
+        <path class="ln" d="M830 290 C 670 290, 630 230, 546 230"/>
+        <path class="ln" d="M830 390 C 670 390, 640 230, 546 230"/>
+        <!-- left nodes -->
+        <g><rect class="node-bg" x="106" y="56" width="48" height="48" rx="12"/><text class="em" x="130" y="88" text-anchor="middle">📝</text><text class="lbl" x="130" y="122" text-anchor="middle">Документ</text></g>
+        <g><rect class="node-bg" x="106" y="156" width="48" height="48" rx="12"/><text class="em" x="130" y="188" text-anchor="middle">🪧</text><text class="lbl" x="130" y="222" text-anchor="middle">Холст</text></g>
+        <g><rect class="node-bg" x="106" y="266" width="48" height="48" rx="12"/><text class="em" x="130" y="298" text-anchor="middle">📄</text><text class="lbl" x="130" y="332" text-anchor="middle">PDF</text></g>
+        <g><rect class="node-bg" x="106" y="366" width="48" height="48" rx="12"/><text class="em" x="130" y="398" text-anchor="middle">🎵</text><text class="lbl" x="130" y="432" text-anchor="middle">Аудио</text></g>
+        <!-- right nodes -->
+        <g><rect class="node-bg" x="846" y="56" width="48" height="48" rx="12"/><text class="em" x="870" y="88" text-anchor="middle">🤖</text><text class="lbl" x="870" y="122" text-anchor="middle">AI-чат</text></g>
+        <g><rect class="node-bg" x="846" y="156" width="48" height="48" rx="12"/><text class="em" x="870" y="188" text-anchor="middle">🖼️</text><text class="lbl" x="870" y="222" text-anchor="middle">Изображение</text></g>
+        <g><rect class="node-bg" x="846" y="266" width="48" height="48" rx="12"/><text class="em" x="870" y="298" text-anchor="middle">🎬</text><text class="lbl" x="870" y="332" text-anchor="middle">Видео</text></g>
+        <g><rect class="node-bg" x="846" y="366" width="48" height="48" rx="12"/><text class="em" x="870" y="398" text-anchor="middle">🗒️</text><text class="lbl" x="870" y="432" text-anchor="middle">Заметка</text></g>
+        <!-- center Modus -->
+        <rect class="ctr" x="468" y="198" width="64" height="64" rx="16"/>
+        <rect x="489" y="219" width="22" height="22" rx="6" fill="#ffffff"/>
+        <circle cx="507" cy="223" r="3.5" fill="#0028ff"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="block" id="who">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Для кого</span>
+      <h2>Создан для тех, кто работает <em>со знанием</em></h2>
+    </div>
+    <div class="aud reveal">
+      <a href="landing-teachers.html">
+        <div class="tag">Преподаватели</div>
+        <h4>Учите, а не переключайтесь</h4>
+        <p>Урок, доска и AI рядом — показывайте ученику только нужное.</p>
+        <div class="go">Открыть</div>
+      </a>
+      <a href="landing-researchers.html">
+        <div class="tag">Исследователи</div>
+        <h4>Собирайте знание в систему</h4>
+        <p>Источники, заметки и AI с поиском по вашим материалам.</p>
+        <div class="go">Открыть</div>
+      </a>
+      <a href="landing-pm.html">
+        <div class="tag">Продакт-менеджеры</div>
+        <h4>Думайте, а не собирайте контекст</h4>
+        <p>Документы, схемы и AI в одном пространстве продукта.</p>
+        <div class="go">Открыть</div>
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- CTA -->
+<section class="closer" id="signup">
+  <div class="wrap reveal">
+    <span class="eyebrow">Начать</span>
+    <h2 style="margin-top:20px; margin-bottom:18px;">Рабочее пространство, которое <em>думает вместе с вами</em></h2>
+    <p style="font-size:clamp(18px,2vw,22px); color:var(--muted); max-width:26ch; margin:0 auto 32px; line-height:1.4;">Всегда готово, когда нужно.</p>
+    <a href="#" class="btn-dark">Записаться на онбординг</a>
+    <div class="closer-note">30 минут · бесплатно · ваш процесс, ваши задачи</div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Modus</span>
+  <span>Единое пространство для мышления и знаний</span>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8));
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

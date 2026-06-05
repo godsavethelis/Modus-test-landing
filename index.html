@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modus — лендинги (тест)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Inter",system-ui,sans-serif;background:#f8f9fb;color:#0a0a0a;-webkit-font-smoothing:antialiased;line-height:1.5;padding:clamp(28px,7vw,80px) clamp(20px,5vw,40px)}
+.wrap{max-width:760px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:20px;letter-spacing:-.02em;margin-bottom:8px}
+.brand .mk{width:20px;height:20px;border-radius:6px;background:#0a0a0a;position:relative}
+.brand .mk::after{content:"";position:absolute;inset:6px 6px auto auto;width:6px;height:6px;border-radius:50%;background:#0028ff}
+.sub{color:#737373;font-size:15px;margin-bottom:34px}
+.grid{display:grid;gap:14px}
+a.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid #e8e9ec;border-radius:16px;padding:22px 24px;transition:transform .2s,box-shadow .2s,border-color .2s}
+a.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px -28px rgba(10,10,30,.25);border-color:#dcdde2}
+.t{font-size:18px;font-weight:600;letter-spacing:-.02em;display:flex;align-items:center;justify-content:space-between}
+.t .ar{color:#0028ff}
+.d{font-size:14px;color:#737373;margin-top:5px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:9px;vertical-align:middle}
+footer{margin-top:36px;font-size:12px;color:#9aa0ad;font-family:ui-monospace,monospace}
+</style></head><body>
+<div class="wrap">
+  <div class="brand"><span class="mk"></span>Modus</div>
+  <div class="sub">Тестовые лендинги · для просмотра и обратной связи</div>
+  <div class="grid">
+    <a class="card" href="landing-modus-style.html"><div class="t"><span><span class="dot" style="background:#0028ff"></span>Общий лендинг</span><span class="ar">&rarr;</span></div><div class="d">Единое пространство: документ, холст и AI</div></a>
+    <a class="card" href="landing-teachers.html"><div class="t"><span><span class="dot" style="background:#e8458f"></span>Для преподавателей</span><span class="ar">&rarr;</span></div><div class="d">Урок, доска и AI — вместе с учениками</div></a>
+    <a class="card" href="landing-researchers.html"><div class="t"><span><span class="dot" style="background:#3b5bff"></span>Для исследователей</span><span class="ar">&rarr;</span></div><div class="d">Источники, заметки и AI в одном контексте</div></a>
+    <a class="card" href="landing-pm.html"><div class="t"><span><span class="dot" style="background:#ff4901"></span>Для продакт-менеджеров</span><span class="ar">&rarr;</span></div><div class="d">Документы, схемы и AI в одном окне</div></a>
+  </div>
+  <footer>© 2026 Modus · тестовая версия</footer>
+</div></body></html>

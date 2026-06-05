@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Modus — для продакт-менеджеров и команд</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    --bg:#ffffff; --bg-2:#f5f6f8; --card:#ffffff; --ink:#1d1d1f; --gray:#858585;
+    --line:#ececef; --line-2:#e3e3e8;
+    --accent:#ff4901; --accent-2:#ff7a45; --accent-soft:#fff1eb;
+    --radius:40px; --radius-card:30px;
+    --shadow:0 40px 90px -42px rgba(28,24,20,0.30);
+    --shadow-sm:0 16px 40px -26px rgba(28,24,20,0.22);
+    --shadow-ui:0 30px 60px -26px rgba(20,18,30,0.46);
+    --sans:"Inter",system-ui,sans-serif; --maxw:1240px;
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:18px; line-height:1.5; font-weight:400;
+         letter-spacing:-0.011em; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  ::selection { background:var(--accent); color:#fff; }
+  img { display:block; max-width:100%; }
+  .wrap { max-width:var(--maxw); margin:0 auto; padding:0 clamp(16px,3vw,28px); position:relative; }
+
+  .hero { padding:12px; }
+  .hero-card { position:relative; overflow:hidden; border-radius:var(--radius); min-height:min(880px,93vh); display:flex; flex-direction:column; isolation:isolate; }
+  .hero-bg { position:absolute; inset:0; z-index:-3; }
+  .hero-bg img { width:100%; height:100%; object-fit:cover; object-position:50% 38%; filter:saturate(1.15); }
+  /* accent color wash over the photo */
+  .hero-card::after { content:""; position:absolute; inset:0; z-index:-2; pointer-events:none;
+    background:radial-gradient(72% 56% at 50% 36%, rgba(255,73,1,0.30), transparent 60%),
+               linear-gradient(180deg, rgba(255,73,1,0.42) 0%, rgba(255,73,1,0.30) 40%, rgba(20,16,30,0.42) 100%);
+    mix-blend-mode:multiply; }
+  .aura { position:absolute; left:50%; top:34%; transform:translate(-50%,-50%); width:min(640px,80vw); aspect-ratio:1; z-index:-1; pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,0.85) 1.3px, transparent 1.5px); background-size:15px 15px;
+    -webkit-mask:radial-gradient(circle, transparent 28%, #000 42%, transparent 64%); mask:radial-gradient(circle, transparent 28%, #000 42%, transparent 64%);
+    mix-blend-mode:screen; opacity:.4; animation:auraPulse 6s ease-in-out infinite; }
+  @keyframes auraPulse { 0%,100%{opacity:.3; transform:translate(-50%,-50%) scale(1);} 50%{opacity:.5; transform:translate(-50%,-50%) scale(1.05);} }
+  .hero-card::before { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(10,8,14,0.10) 0%, transparent 26%, rgba(10,6,14,0.34) 60%, rgba(6,4,10,0.74) 100%); }
+
+  .hero-nav { position:relative; z-index:3; display:flex; align-items:center; justify-content:space-between; padding:clamp(20px,3vw,32px) clamp(22px,3.4vw,44px); }
+  .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:600; font-size:21px; letter-spacing:-0.02em; }
+  .brand .mk { width:26px; height:26px; border-radius:8px; background:#fff; position:relative; }
+  .brand .mk::after { content:""; position:absolute; inset:7px 7px auto auto; width:8px; height:8px; border-radius:50%; background:var(--accent); }
+  .hero-nav .links { display:flex; align-items:center; gap:clamp(18px,2.4vw,36px); }
+  .hero-nav .links a { color:#fff; text-decoration:none; font-size:15.5px; font-weight:500; opacity:.92; transition:opacity .2s; }
+  .hero-nav .links a:hover { opacity:.7; }
+  .hero-nav .demo { background:#fff; color:var(--ink); padding:10px 20px; border-radius:100px; opacity:1 !important; font-weight:500; transition:transform .2s; }
+  .hero-nav .demo:hover { transform:translateY(-1px); }
+
+  .hero-body { position:relative; z-index:3; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; text-align:center; color:#fff; padding:0 clamp(20px,5vw,40px) clamp(54px,8vh,92px); }
+  .hero-body h1 { font-weight:600; font-size:clamp(32px,4.6vw,60px); line-height:1.08; letter-spacing:-0.035em; max-width:18ch; text-wrap:balance; text-shadow:0 2px 30px rgba(20,10,0,0.5); margin-bottom:22px; opacity:0; animation:rise 1s .15s ease forwards; }
+  .hero-body p { font-size:clamp(17px,1.7vw,20px); font-weight:400; color:rgba(255,255,255,0.92); max-width:48ch; line-height:1.45; margin-bottom:34px; text-shadow:0 1px 16px rgba(20,10,0,0.5); opacity:0; animation:rise 1s .32s ease forwards; }
+  .hero-cta { display:inline-block; background:#fff; color:var(--ink); font-weight:600; font-size:16.5px; text-decoration:none; padding:17px 38px; border-radius:100px; box-shadow:0 18px 40px -16px rgba(0,0,0,0.5); transition:transform .2s, box-shadow .2s; opacity:0; animation:rise 1s .46s ease forwards; }
+  .hero-cta:hover { transform:translateY(-2px); }
+
+  .topnav { position:fixed; inset:0 0 auto 0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:13px clamp(20px,4vw,40px); background:rgba(255,255,255,0.86); backdrop-filter:blur(16px); border-bottom:1px solid var(--line); transform:translateY(-110%); transition:transform .35s ease; }
+  .topnav.show { transform:none; }
+  .topnav .brand { color:var(--ink); font-size:19px; }
+  .topnav .brand .mk { background:var(--ink); }
+  .topnav .demo { background:var(--ink); color:#fff; text-decoration:none; padding:10px 20px; border-radius:100px; font-weight:500; font-size:14.5px; }
+
+  .metrics { padding:clamp(60px,7vw,90px) 0 0; }
+  .mrow { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .metric { background:var(--bg-2); border-radius:var(--radius-card); padding:34px 32px; min-height:300px; display:flex; flex-direction:column; transition:transform .3s; }
+  .metric:hover { transform:translateY(-4px); }
+  .metric h4 { font-size:19px; font-weight:600; letter-spacing:-0.02em; }
+  .metric .desc { font-size:15px; color:var(--gray); margin-top:8px; line-height:1.5; flex:1; }
+  .metric .big { display:flex; align-items:flex-start; gap:8px; margin-top:18px; }
+  .metric .big b { font-size:clamp(50px,5.6vw,76px); font-weight:600; letter-spacing:-0.045em; line-height:0.9; }
+  .metric .big .ic { width:26px; height:26px; border-radius:50%; border:1.6px solid var(--ink); display:flex; align-items:center; justify-content:center; font-size:13px; margin-top:6px; }
+  .metric .lbl { font-size:15px; color:var(--gray); margin-top:14px; }
+
+  .manifesto { padding:clamp(90px,12vw,150px) 0; text-align:center; }
+  .manifesto p { font-weight:600; font-size:clamp(28px,4.2vw,50px); line-height:1.16; letter-spacing:-0.035em; max-width:23ch; margin:0 auto; }
+  .manifesto p .gray { color:var(--gray); }
+
+  .seclabel { display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; letter-spacing:0.04em; color:var(--accent); text-transform:uppercase; margin-bottom:18px; }
+  .seclabel::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .lede { font-weight:600; font-size:clamp(26px,3.4vw,42px); line-height:1.16; letter-spacing:-0.03em; max-width:25ch; margin-bottom:46px; }
+  .lede .g { color:var(--gray); }
+
+  .features { padding:clamp(70px,9vw,120px) 0 0; }
+  .fcard { position:relative; overflow:hidden; border-radius:var(--radius); padding:clamp(28px,4vw,56px); display:flex; align-items:center; justify-content:center; min-height:460px; }
+  .fcard .fbg { position:absolute; inset:0; z-index:-2; }
+  .fcard .fbg img { width:100%; height:100%; object-fit:cover; filter:saturate(1.4); }
+  .fcard::before { content:""; position:absolute; inset:0; z-index:-1;
+    background:radial-gradient(60% 80% at 12% 8%, rgba(255,73,1,0.22), transparent 60%),
+               radial-gradient(60% 80% at 90% 92%, rgba(255,73,1,0.18), transparent 60%),
+               linear-gradient(160deg, rgba(255,255,255,0.26), rgba(255,255,255,0.08)); }
+  .feature { margin-bottom:clamp(46px,6vw,72px); }
+  .feature.wide .fcard { min-height:540px; }
+  .feat-cap { padding:24px 6px 0; max-width:54ch; }
+  .feat-cap h3 { font-size:clamp(22px,2.6vw,30px); font-weight:600; letter-spacing:-0.03em; line-height:1.14; }
+  .feat-cap p { font-size:17.5px; color:var(--gray); margin-top:10px; line-height:1.5; }
+  .feat-note { font-size:12px; color:#b3b3ba; margin-top:8px; padding-left:6px; }
+  .duo { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .ui-shot { width:100%; max-width:780px; border-radius:22px; overflow:hidden; box-shadow:var(--shadow-ui); border:1px solid rgba(255,255,255,0.6); }
+  .ui-shot img { width:100%; }
+  .mock { width:100%; max-width:430px; background:#fff; border-radius:22px; box-shadow:var(--shadow-ui); padding:18px; }
+  .mock .mock-top { display:flex; gap:6px; margin-bottom:14px; }
+  .mock .mock-top i { width:9px; height:9px; border-radius:50%; background:#e2e2e6; }
+  .m-line { height:11px; border-radius:5px; background:#eceef2; margin:9px 0; }
+  .m-line.h { height:16px; width:55%; background:#e0e2e8; }
+  .m-line.w70{width:70%;} .m-line.w85{width:85%;}
+  .slashmenu { margin-top:14px; border:1px solid var(--line); border-radius:14px; padding:8px; box-shadow:var(--shadow-sm); }
+  .slashmenu .si { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:9px; font-size:13.5px; color:var(--ink); }
+  .slashmenu .si.act { background:var(--accent-soft); color:var(--accent); font-weight:500; }
+  .slashmenu .si .ico { width:22px; height:22px; border-radius:6px; background:#f1f2f5; display:flex; align-items:center; justify-content:center; font-size:12px; }
+  .slashmenu .si.act .ico { background:var(--accent-soft); }
+  .ai-msg { font-size:14px; color:var(--ink); background:#f3f4f7; border-radius:14px 14px 14px 4px; padding:11px 14px; line-height:1.4; max-width:92%; }
+  .ai-chips { display:flex; gap:7px; margin:12px 0; }
+  .ai-chips .c { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--ink); background:#fff; border:1px solid var(--line-2); border-radius:100px; padding:5px 11px; }
+  .ai-chips .c .d { width:6px; height:6px; border-radius:2px; }
+  .ai-reply { font-size:13.5px; color:var(--gray); border-left:2px solid var(--accent); padding-left:12px; margin-top:12px; line-height:1.5; }
+  .ai-bar { display:flex; align-items:center; gap:10px; margin-top:14px; border:1px solid var(--line-2); border-radius:100px; padding:9px 9px 9px 16px; }
+  .ai-bar .ph { font-size:13px; color:#aab; flex:1; }
+  .ai-bar .send { width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; }
+
+  .value { padding:clamp(90px,11vw,140px) 0 0; }
+  .vgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .vcard { background:var(--bg-2); border-radius:var(--radius-card); padding:34px 32px; display:flex; gap:18px; align-items:flex-start; transition:transform .3s; }
+  .vcard:hover { transform:translateY(-4px); }
+  .vnum { flex-shrink:0; width:42px; height:42px; border-radius:13px; background:#fff; color:var(--accent); font-weight:600; display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:var(--shadow-sm); }
+  .vt { font-size:18px; font-weight:500; line-height:1.4; padding-top:7px; letter-spacing:-0.02em; }
+
+  .closer { padding:clamp(90px,11vw,140px) 12px 12px; }
+  .vision { position:relative; overflow:hidden; border-radius:var(--radius); min-height:min(720px,82vh); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#fff; padding:clamp(60px,8vw,90px) clamp(24px,5vw,60px); isolation:isolate; }
+  .vision .vbg { position:absolute; inset:0; z-index:-3; }
+  .vision .vbg img { width:100%; height:100%; object-fit:cover; object-position:50% 38%; filter:saturate(1.15); }
+  .vision::after { content:""; position:absolute; inset:0; z-index:-2; background:radial-gradient(70% 60% at 50% 40%, rgba(255,73,1,0.30), transparent 65%); mix-blend-mode:multiply; }
+  .vision::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(16,10,4,0.5), rgba(8,4,2,0.64)); }
+  .vision .logo-mark { width:54px; height:54px; border-radius:15px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); display:flex; align-items:center; justify-content:center; margin-bottom:34px; backdrop-filter:blur(4px); }
+  .vision .logo-mark span { width:18px; height:18px; border-radius:6px; background:#fff; position:relative; }
+  .vision .logo-mark span::after { content:""; position:absolute; inset:5px 5px auto auto; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .vision h2 { font-weight:600; font-size:clamp(26px,3.4vw,44px); line-height:1.22; letter-spacing:-0.03em; max-width:25ch; margin-bottom:38px; text-shadow:0 2px 24px rgba(16,10,4,0.5); }
+  .vision .vcta { display:inline-block; background:#fff; color:var(--ink); font-weight:600; font-size:16.5px; text-decoration:none; padding:17px 38px; border-radius:100px; box-shadow:0 18px 40px -16px rgba(0,0,0,0.5); transition:transform .2s; }
+  .vision .vcta:hover { transform:translateY(-2px); }
+  .vision .vnote { font-size:13.5px; color:rgba(255,255,255,0.75); margin-top:16px; }
+
+  footer { border-top:1px solid var(--line); padding:34px clamp(20px,4vw,40px); max-width:var(--maxw); margin:30px auto 0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:14px; color:var(--gray); }
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity:1; transform:none; }
+  @keyframes rise { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:none;} }
+  @media (max-width:880px) { .mrow{grid-template-columns:1fr;} .duo{grid-template-columns:1fr;} .vgrid{grid-template-columns:1fr;} .hero-nav .links a:not(.demo){display:none;} .hero-card{min-height:88vh;} }
+  @media (prefers-reduced-motion: reduce) { *{animation:none !important; transition:none !important;} .reveal,.hero-body h1,.hero-body p,.hero-cta{opacity:1 !important; transform:none !important;} }
+</style>
+</head>
+<body>
+
+<div class="topnav" id="topnav">
+  <a href="#" class="brand"><span class="mk"></span>Modus</a>
+  <a href="#signup" class="demo">Записаться</a>
+</div>
+
+<header class="hero">
+  <div class="hero-card">
+    <div class="hero-bg"><img src="assets/seg-teacher-sil.jpg" alt="" /></div>
+    <div class="aura"></div>
+    <nav class="hero-nav">
+      <a href="#" class="brand"><span class="mk"></span>Modus</a>
+      <div class="links">
+        <a href="#how">Как работает</a>
+        <a href="#value">Ценность</a>
+        <a href="#signup" class="demo">Записаться</a>
+      </div>
+    </nav>
+    <div class="hero-body">
+      <h1>Онлайн-доска, редактор и AI-чат — всё в одном, чтобы не распылять ход мысли</h1>
+      <p>Пишите, стройте схемы и работайте с AI в одном месте — для всех, кто думает, планирует и принимает решения.</p>
+      <a href="#signup" class="hero-cta">Записаться на онбординг →</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="metrics">
+    <div class="mrow">
+      <div class="metric reveal"><h4>Инструменты</h4><div class="desc">Бесконечные холсты, документы как в Notion и AI-чат, который знает всё, что вы создали в Modus.</div><div class="big"><b>3-в-1</b><span class="ic">↗</span></div><div class="lbl">в одном окне</div></div>
+      <div class="metric reveal"><h4>Контекст</h4><div class="desc">Не переключайтесь между разными контекстами — используйте всю мощь в одном пространстве.</div><div class="big"><b>0</b><span class="ic">↗</span></div><div class="lbl">потерь контекста</div></div>
+      <div class="metric reveal"><h4>Фокус</h4><div class="desc">Оставайтесь в фокусе, не отвлекаясь на переключение между окнами.</div><div class="big"><b>1</b><span class="ic">↗</span></div><div class="lbl">пространство для работы</div></div>
+    </div>
+  </section>
+
+  <section class="manifesto reveal">
+    <p>Modus — единое пространство, где документы, схемы и AI работают как одно целое. <span class='gray'>Для тех, кто превращает неопределённость в решения.</span></p>
+  </section>
+
+  <section class="features" id="how">
+    <div class="reveal">
+      <div class="seclabel">Как это работает</div>
+      <h2 class="lede">Сплит-режим. <span class='g'>Не просто разбивает экран на холст, документ и чат — а позволяет работать в трёх модальностях сразу.</span></h2>
+    </div>
+
+    <div class="feature wide reveal">
+      <div class="fcard">
+        <div class="fbg"><img src="assets/bg-blur-3.jpg" alt="" /></div>
+        <div class="ui-shot"><img src="modus-split.png" alt="Сплит-режим Modus" /></div>
+      </div>
+      <div class="feat-cap"><h3>Спека, схема и AI — рядом, в одном окне</h3><p>Документ слева, карта флоу на холсте в центре, AI справа. Думайте над продуктом, а не собирайте контекст заново.</p></div>
+    </div>
+
+    <div class="duo">
+      <div class="feature reveal">
+        <div class="fcard">
+          <div class="fbg"><img src="assets/bg-blur-1.jpg" alt="" /></div>
+          <div class="mock">
+            <div class="mock-top"><i></i><i></i><i></i></div>
+            <div class="m-line h"></div><div class="m-line w85"></div><div class="m-line w70"></div>
+            <div class="slashmenu">
+              <div class="si act"><span class="ico">T</span> Заголовок PRD</div>
+              <div class="si"><span class="ico">≡</span> Чек-лист</div>
+              <div class="si"><span class="ico">▦</span> Таблица гипотез</div>
+            </div>
+          </div>
+        </div>
+        <div class="feat-cap"><h3>Блочный редактор</h3><p>Заголовки, таблицы, чек-листы, гипотезы — как в Notion и Tana. Структура без переключения на другой инструмент.</p></div>
+        <div class="feat-note">UI-превью · заменить на скриншот редактора Modus</div>
+      </div>
+
+      <div class="feature reveal">
+        <div class="fcard">
+          <div class="fbg"><img src="assets/bg-blur-2.jpg" alt="" /></div>
+          <div class="mock">
+            <div class="ai-msg">Собери из этого PRD структуру и риски</div>
+            <div class="ai-chips">
+              <span class="c"><span class="d" style="background:#4b8dff"></span> холст</span>
+              <span class="c"><span class="d" style="background:var(--accent)"></span> документ</span>
+            </div>
+            <div class="ai-reply">AI читает ваш холст и документы и помогает структурировать — без копирования…</div>
+            <div class="ai-bar"><span class="ph">Спросите AI о чём-нибудь</span><span class="send">↑</span></div>
+          </div>
+        </div>
+        <div class="feat-cap"><h3>AI работает в контексте продукта</h3><p>Прикрепите холст и документы — AI читает их сам, помогает структурировать, найти риски и собрать решение.</p></div>
+        <div class="feat-note">UI-превью · заменить на скриншот AI-чата Modus</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="value" id="value">
+    <div class="reveal">
+      <div class="seclabel">Ценность</div>
+      <h2 class="lede">Меньше переключений. <span class='g'>Больше фокуса, ясности и доведённых до решения задач.</span></h2>
+    </div>
+    <div class="vgrid">
+      <div class="vcard reveal"><div class="vnum">01</div><div class="vt">Меньше переключений между документами, доской и AI-чатом</div></div>
+      <div class="vcard reveal"><div class="vnum">02</div><div class="vt">Контекст продукта не теряется и не дублируется копиями</div></div>
+      <div class="vcard reveal"><div class="vnum">03</div><div class="vt">Переиспользование наработок в новых задачах и фичах</div></div>
+      <div class="vcard reveal"><div class="vnum">04</div><div class="vt">Быстрый путь от неопределённости к решению и плану</div></div>
+    </div>
+  </section>
+</div>
+
+<section class="closer" id="signup">
+  <div class="vision reveal">
+    <div class="vbg"><img src="assets/seg-teacher-sil.jpg" alt="" /></div>
+    <div class="logo-mark"><span></span></div>
+    <h2>Мы верим, что лучшие решения рождаются в одном контексте. Modus собирает документы, схемы и AI в один поток — чтобы вы думали, а не собирали контекст заново.</h2>
+    <a href="#" class="vcta">Записаться на онбординг →</a>
+    <div class="vnote">30 минут · бесплатно · ваш процесс, ваши задачи</div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Modus · для продакт-менеджеров и команд</span>
+  <span>Единая среда для мышления и знаний</span>
+</footer>
+
+<script>
+  const topnav = document.getElementById('topnav');
+  addEventListener('scroll', () => topnav.classList.toggle('show', scrollY > 560));
+  const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
