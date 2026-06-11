@@ -372,6 +372,19 @@
   }
   @media (prefers-reduced-motion: reduce){ *{animation:none!important;transition:none!important;} .reveal{opacity:1!important;transform:none!important;} }
 </style>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109784586', 'ym');
+
+    ym(109784586, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109784586" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </head>
 <body>
 
@@ -428,7 +441,7 @@
 <div class="wrap">
 
   <!-- MADE FOR -->
-  <section class="block" style="padding-top:clamp(70px,9vw,110px);">
+  <section class="block" id="who" style="padding-top:clamp(70px,9vw,110px);">
     <div class="sec-head center reveal">
       <h2 style="margin:0;">Создан для</h2>
     </div>
@@ -702,6 +715,25 @@
   addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8));
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* ── Яндекс.Метрика: цели ── */
+  const YM_ID = 109784586;
+  function goal(n){ try{ if(window.ym) ym(YM_ID,'reachGoal',n); }catch(e){} }
+  const bind=(sel,name)=>document.querySelectorAll(sel).forEach(el=>el.addEventListener('click',()=>goal(name)));
+  // клики по кнопкам
+  bind('.hero a[href*="t.me/An_lis"]','signup_hero');     // hero → Telegram (конверсия)
+  bind('.closer a[href*="t.me/An_lis"]','signup_footer');  // финальный CTA → Telegram (конверсия)
+  bind('.nav-cta','signup_nav');                           // «Записаться» в шапке (скролл вниз)
+  bind('.nav-ghost','login_click');                        // «Войти» → modusapp.ru
+  bind('.hero .btn-ghost','how_it_works');                 // «Как это работает»
+  // доскролл до ключевых «этажей»
+  const depthMap={who:'scroll_who',how:'scroll_how',cases:'scroll_cases',signup:'scroll_cta'};
+  const seen={};
+  const depthIO=new IntersectionObserver((es)=>{es.forEach(e=>{
+    const g=depthMap[e.target.id];
+    if(e.isIntersecting && g && !seen[g]){ seen[g]=1; goal(g); }
+  });},{threshold:0.15});
+  Object.keys(depthMap).forEach(id=>{const el=document.getElementById(id); if(el) depthIO.observe(el);});
 </script>
 </body>
 </html>
