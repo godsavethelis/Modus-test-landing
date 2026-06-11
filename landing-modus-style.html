@@ -56,6 +56,8 @@
   .nav-links a:hover { color:var(--ink); }
   .nav-cta { background:var(--ink); color:#fff !important; padding:9px 18px; border-radius:var(--r); font-weight:500; font-size:14px; transition:background .2s; }
   .nav-cta:hover { background:var(--blue); }
+  .nav-ghost { background:#fff; color:var(--ink); border:1px solid var(--line-2); padding:8px 17px; border-radius:var(--r); font-weight:500; font-size:14px; transition:border-color .2s; }
+  .nav-ghost:hover { border-color:#c9c9c9; }
 
   /* ── HERO ── */
   .hero { padding:118px 0 70px; text-align:center; }
@@ -328,9 +330,9 @@
   .bento .cell:hover .ic { transform: translateY(-2px) rotate(-5deg); }
 
   /* nav link underline grow */
-  .nav-links a:not(.nav-cta) { position:relative; }
-  .nav-links a:not(.nav-cta)::after { content:""; position:absolute; left:0; bottom:-4px; height:1.5px; width:0; background:var(--blue); transition: width .26s cubic-bezier(.2,.7,.2,1); }
-  .nav-links a:not(.nav-cta):hover::after { width:100%; }
+  .nav-links a:not(.nav-cta):not(.nav-ghost) { position:relative; }
+  .nav-links a:not(.nav-cta):not(.nav-ghost)::after { content:""; position:absolute; left:0; bottom:-4px; height:1.5px; width:0; background:var(--blue); transition: width .26s cubic-bezier(.2,.7,.2,1); }
+  .nav-links a:not(.nav-cta):not(.nav-ghost):hover::after { width:100%; }
 
   /* model picker row hover */
   .mpick .row { transition: background .2s ease; }
@@ -350,7 +352,7 @@
     .subgrid{grid-template-columns:1fr;} .scard.wide{grid-column:span 1;}
     .cases{grid-template-columns:1fr;}
     .filetypes{grid-template-columns:repeat(2,1fr);}
-    .nav-links a:not(.nav-cta){display:none;}
+    .nav-links a:not(.nav-cta):not(.nav-ghost){display:none;}
     .media-pad{min-height:auto; padding:24px;}
     .sec-head{max-width:none;}
     .feat-text p{max-width:none;}
@@ -379,6 +381,7 @@
     <a href="#how">Возможности</a>
     <a href="#ai">AI</a>
     <a href="#who">Для кого</a>
+    <a href="https://modusapp.ru" class="nav-ghost">Войти</a>
     <a href="#signup" class="nav-cta">Записаться</a>
   </div>
 </nav>
