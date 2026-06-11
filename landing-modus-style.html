@@ -71,6 +71,7 @@
 
   /* hero product visual */
   .hero-visual { margin:64px auto 0; max-width:1060px; }
+  .hero-shot { width:100%; border-radius:var(--r-lg); box-shadow:0 36px 80px -42px rgba(10,10,30,0.4); }
   .frame { border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; background:var(--bg-2); box-shadow:0 30px 70px -40px rgba(10,10,20,0.3); }
   .frame-bar { display:flex; align-items:center; gap:6px; padding:11px 16px; border-bottom:1px solid var(--line); background:#fff; }
   .frame-bar i { width:9px; height:9px; border-radius:50%; background:#e0e0e0; }
@@ -166,10 +167,10 @@
   .stick { position:absolute; width:62px; height:54px; border-radius:5px; padding:7px; font-size:8.5px; line-height:1.25; box-shadow:0 9px 18px -10px rgba(0,0,0,0.32); }
 
   /* made-for pills */
-  .madefor { display:flex; flex-wrap:wrap; gap:12px; margin-top:38px; }
-  .mf-pill { display:inline-flex; align-items:center; gap:10px; border:1.5px dashed var(--line-2); border-radius:100px; padding:11px 20px; font-size:16px; font-weight:500; color:var(--ink); transition:border-color .2s, background .2s; }
+  .madefor { display:flex; flex-wrap:wrap; gap:14px; margin-top:42px; }
+  .mf-pill { display:inline-flex; align-items:center; gap:12px; border:1.5px dashed var(--line-2); border-radius:100px; padding:15px 28px; font-size:21px; font-weight:500; color:var(--ink); transition:border-color .2s, background .2s; }
   .mf-pill:hover { border-color:#c7c7c7; background:var(--bg-2); }
-  .mf-pill .em { font-size:18px; }
+  .mf-pill .em { font-size:24px; }
   .mf-pill .ar { color:var(--faint); margin-left:2px; }
 
   /* file types grid */
@@ -179,12 +180,13 @@
 
   /* hub diagram */
   .hubwrap { margin-top:48px; }
-  .hub { width:100%; max-width:920px; margin:0 auto; display:block; }
-  .hub .ln { stroke:#dcdcdc; stroke-width:1.6; stroke-dasharray:5 6; fill:none; }
-  .hub .node-bg { fill:#fff; stroke:#ececec; }
+  .hubcard { background:linear-gradient(160deg,#fafafa,#f1f1f3); border:1px solid var(--line); border-radius:var(--r-lg); padding:clamp(20px,4vw,56px); }
+  .hub { width:100%; max-width:1020px; margin:0 auto; display:block; }
+  .hub .ln { stroke:#d6d6d6; stroke-width:1.8; stroke-dasharray:6 7; fill:none; }
+  .hub .node-bg { fill:#fff; stroke:#e7e7e7; }
   .hub .ctr { fill:#0a0a0a; }
-  .hub text.em { font-size:22px; }
-  .hub text.lbl { font-family:var(--mono); font-size:11px; fill:var(--faint); }
+  .hub text.em { font-size:30px; }
+  .hub text.lbl { font-family:var(--mono); font-size:13px; fill:var(--faint); }
 
   /* ── TRUST ── */
   .trust { padding:64px 0 0; text-align:center; }
@@ -221,6 +223,40 @@
   .feat-list { margin-top:22px; display:grid; gap:10px; }
   .feat-list li { list-style:none; font-size:15.5px; color:var(--muted); padding-left:22px; position:relative; }
   .feat-list li::before { content:""; position:absolute; left:0; top:8px; width:7px; height:7px; border-radius:50%; background:var(--blue); }
+
+  /* core features: stacked, full-width, dominant */
+  .fb { text-align:center; }
+  .fb .eyebrow { display:inline-block; margin-bottom:16px; }
+  .fb h3 { font-family:var(--serif); font-weight:400; font-size:clamp(38px,5.6vw,68px); line-height:1.02; letter-spacing:-0.012em; max-width:21ch; margin:0 auto; }
+  .fb h3 em { font-style:italic; color:var(--blue); }
+  .fb .fb-sub { font-size:19px; color:var(--muted); margin:20px auto 0; max-width:52ch; line-height:1.55; }
+  .fb-points { margin:26px auto 0; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; list-style:none; max-width:880px; }
+  .fb-points li { font-size:14.5px; color:var(--muted); background:var(--bg-2); border:1px solid var(--line); border-radius:100px; padding:8px 16px; }
+  .fb-media { margin:clamp(36px,4.6vw,58px) auto 0; max-width:1060px; }
+  .fb-media .media-pad { min-height:440px; }
+
+  /* secondary features: compact card grid */
+  .subgrid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:clamp(36px,5vw,60px); }
+  .scard { border:1px solid var(--line); border-radius:var(--r-lg); background:var(--bg-2); padding:28px 28px 26px; display:flex; flex-direction:column; transition:transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s ease, box-shadow .3s ease; }
+  .scard:hover { transform:translateY(-3px); border-color:var(--line-2); box-shadow:0 20px 44px -28px rgba(10,10,30,0.26); }
+  .scard.wide { grid-column:span 2; }
+  .scard .eyebrow { font-size:11px; }
+  .scard h4 { font-size:19px; font-weight:600; letter-spacing:-0.02em; margin-top:12px; }
+  .scard p { font-size:14.5px; color:var(--faint); line-height:1.55; margin-top:6px; max-width:60ch; }
+  .scard .sc-media { margin-top:22px; display:flex; justify-content:center; align-items:center; flex:1; }
+  .scard .sc-media .frame { width:100%; }
+
+  /* ── USE CASES ── */
+  .cases { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:clamp(40px,5vw,60px); }
+  .case-col { border:1px solid var(--line); border-radius:var(--r-lg); background:var(--bg-2); padding:30px 28px;
+    border-top:3px solid var(--accent); transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease; }
+  .case-col:hover { transform:translateY(-3px); box-shadow:0 20px 44px -28px rgba(10,10,30,0.22); }
+  .case-head { display:flex; align-items:center; gap:11px; font-size:16.5px; font-weight:600; letter-spacing:-0.01em; margin-bottom:22px; }
+  .case-head .case-ic { font-size:22px; }
+  .case-col ul { list-style:none; display:grid; gap:15px; }
+  .case-col li { font-size:14.5px; color:var(--muted); line-height:1.5; padding-left:24px; position:relative; }
+  .case-col li::before { content:""; position:absolute; left:0; top:7px; width:8px; height:8px; border-radius:50%; background:var(--accent); }
+  .case-col li b { font-weight:600; color:var(--ink); }
 
   .feat-media .frame { box-shadow:0 24px 60px -36px rgba(10,10,20,0.32); }
   /* tinted backdrop card for mocks */
@@ -311,6 +347,8 @@
     .bento{grid-template-columns:1fr 1fr;} .bento .cell.wide{grid-column:span 2;}
     .feat{grid-template-columns:1fr; gap:30px;} .feat.rev .feat-media{order:0;}
     .aud{grid-template-columns:1fr;}
+    .subgrid{grid-template-columns:1fr;} .scard.wide{grid-column:span 1;}
+    .cases{grid-template-columns:1fr;}
     .filetypes{grid-template-columns:repeat(2,1fr);}
     .nav-links a:not(.nav-cta){display:none;}
     .media-pad{min-height:auto; padding:24px;}
@@ -321,7 +359,7 @@
     .hero{padding:118px 0 48px;}
     .hero h1{font-size:clamp(36px,9vw,52px);}
     .bento{grid-template-columns:1fr; gap:12px;} .bento .cell, .bento .cell.wide{grid-column:span 1; min-height:auto;}
-    .madefor{gap:9px;} .mf-pill{font-size:14.5px; padding:10px 16px;}
+    .madefor{gap:10px;} .mf-pill{font-size:17px; padding:12px 20px;} .mf-pill .em{font-size:20px;}
     .filetypes{grid-template-columns:1fr;}
     .mpick, .sharecard, .docmock{max-width:none; width:100%;}
     .collab{overflow:hidden;}
@@ -373,18 +411,13 @@
   </div>
   <div class="wrap">
     <h1>Думайте, создавайте<br>и решайте — <em>в едином пространстве</em></h1>
-    <p class="hero-sub">Документ, холст и AI-чат вместе. Рядом с вашим личным AI, который знает всё, что вы создали в Modus.</p>
+    <p class="hero-sub">Документ, холст и AI-чат вместе в одном рабочем пространстве.</p>
     <div class="cta-row">
-      <a href="#signup" class="btn-dark">Записаться на онбординг</a>
+      <a href="https://t.me/An_lis" target="_blank" rel="noopener" class="btn-dark">Записаться на онбординг</a>
       <a href="#how" class="btn-ghost">Как это работает →</a>
     </div>
     <div class="hero-visual">
-      <div class="scene">
-        <div class="frame">
-          <div class="frame-bar"><i></i><i></i><i></i></div>
-          <img src="modus-split.png" alt="Modus — документ, холст и AI в одном окне" />
-        </div>
-      </div>
+      <img class="hero-shot" src="assets/screen.png" alt="Modus — документ, холст и AI в одном окне" />
     </div>
   </div>
 </header>
@@ -393,10 +426,10 @@
 
   <!-- MADE FOR -->
   <section class="block" style="padding-top:clamp(70px,9vw,110px);">
-    <div class="sec-head reveal">
-      <h2 style="margin:0;">Создан для…</h2>
+    <div class="sec-head center reveal">
+      <h2 style="margin:0;">Создан для</h2>
     </div>
-    <div class="madefor reveal">
+    <div class="madefor reveal" style="justify-content:center;">
       <span class="mf-pill"><span class="em">🎓</span> Преподаватели <span class="ar">→</span></span>
       <span class="mf-pill"><span class="em">🔬</span> Исследователи <span class="ar">→</span></span>
       <span class="mf-pill"><span class="em">📐</span> Продакт-менеджеры <span class="ar">→</span></span>
@@ -414,44 +447,45 @@
       <p style="max-width:62ch;">Три ключевых инструмента — доска, документы и AI — в одном пространстве. Вы меньше переключаетесь и не теряете фокус, а все материалы хранятся в едином месте: к любому файлу можно обратиться через AI. Документы, холсты, PDF, изображения и видео живут вместе и связаны между собой — больше контекста для вас и всей команды.</p>
     </div>
     <div class="hubwrap reveal" style="margin-top:clamp(40px,5vw,72px);">
-      <svg class="hub" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path class="ln" d="M170 80 C 330 80, 360 230, 454 230"/>
-        <path class="ln" d="M170 180 C 330 180, 370 230, 454 230"/>
-        <path class="ln" d="M170 290 C 330 290, 370 230, 454 230"/>
-        <path class="ln" d="M170 390 C 330 390, 360 230, 454 230"/>
-        <path class="ln" d="M830 80 C 670 80, 640 230, 546 230"/>
-        <path class="ln" d="M830 180 C 670 180, 630 230, 546 230"/>
-        <path class="ln" d="M830 290 C 670 290, 630 230, 546 230"/>
-        <path class="ln" d="M830 390 C 670 390, 640 230, 546 230"/>
-        <g><rect class="node-bg" x="106" y="56" width="48" height="48" rx="12"/><text class="em" x="130" y="88" text-anchor="middle">📝</text><text class="lbl" x="130" y="122" text-anchor="middle">Документ</text></g>
-        <g><rect class="node-bg" x="106" y="156" width="48" height="48" rx="12"/><text class="em" x="130" y="188" text-anchor="middle">🪧</text><text class="lbl" x="130" y="222" text-anchor="middle">Холст</text></g>
-        <g><rect class="node-bg" x="106" y="266" width="48" height="48" rx="12"/><text class="em" x="130" y="298" text-anchor="middle">📄</text><text class="lbl" x="130" y="332" text-anchor="middle">PDF</text></g>
-        <g><rect class="node-bg" x="106" y="366" width="48" height="48" rx="12"/><text class="em" x="130" y="398" text-anchor="middle">🎵</text><text class="lbl" x="130" y="432" text-anchor="middle">Аудио</text></g>
-        <g><rect class="node-bg" x="846" y="56" width="48" height="48" rx="12"/><text class="em" x="870" y="88" text-anchor="middle">🤖</text><text class="lbl" x="870" y="122" text-anchor="middle">AI-чат</text></g>
-        <g><rect class="node-bg" x="846" y="156" width="48" height="48" rx="12"/><text class="em" x="870" y="188" text-anchor="middle">🖼️</text><text class="lbl" x="870" y="222" text-anchor="middle">Изображение</text></g>
-        <g><rect class="node-bg" x="846" y="266" width="48" height="48" rx="12"/><text class="em" x="870" y="298" text-anchor="middle">🎬</text><text class="lbl" x="870" y="332" text-anchor="middle">Видео</text></g>
-        <g><rect class="node-bg" x="846" y="366" width="48" height="48" rx="12"/><text class="em" x="870" y="398" text-anchor="middle">🗒️</text><text class="lbl" x="870" y="432" text-anchor="middle">Заметка</text></g>
-        <rect class="ctr" x="468" y="198" width="64" height="64" rx="16"/>
-        <rect x="489" y="219" width="22" height="22" rx="6" fill="#ffffff"/>
-        <circle cx="507" cy="223" r="3.5" fill="#0028ff"/>
+      <div class="hubcard">
+      <svg class="hub" viewBox="0 0 1000 490" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ln" d="M166 72 C 330 72, 355 240, 453 240"/>
+        <path class="ln" d="M166 185 C 330 185, 370 240, 453 240"/>
+        <path class="ln" d="M166 298 C 330 298, 370 240, 453 240"/>
+        <path class="ln" d="M166 411 C 330 411, 355 240, 453 240"/>
+        <path class="ln" d="M834 72 C 670 72, 645 240, 547 240"/>
+        <path class="ln" d="M834 185 C 670 185, 630 240, 547 240"/>
+        <path class="ln" d="M834 298 C 670 298, 630 240, 547 240"/>
+        <path class="ln" d="M834 411 C 670 411, 645 240, 547 240"/>
+        <g><rect class="node-bg" x="100" y="42" width="60" height="60" rx="15"/><text class="em" x="130" y="83" text-anchor="middle">📝</text><text class="lbl" x="130" y="126" text-anchor="middle">Документ</text></g>
+        <g><rect class="node-bg" x="100" y="155" width="60" height="60" rx="15"/><text class="em" x="130" y="196" text-anchor="middle">🪧</text><text class="lbl" x="130" y="239" text-anchor="middle">Холст</text></g>
+        <g><rect class="node-bg" x="100" y="268" width="60" height="60" rx="15"/><text class="em" x="130" y="309" text-anchor="middle">📄</text><text class="lbl" x="130" y="352" text-anchor="middle">PDF</text></g>
+        <g><rect class="node-bg" x="100" y="381" width="60" height="60" rx="15"/><text class="em" x="130" y="422" text-anchor="middle">🎵</text><text class="lbl" x="130" y="465" text-anchor="middle">Аудио</text></g>
+        <g><rect class="node-bg" x="840" y="42" width="60" height="60" rx="15"/><text class="em" x="870" y="83" text-anchor="middle">🤖</text><text class="lbl" x="870" y="126" text-anchor="middle">AI-чат</text></g>
+        <g><rect class="node-bg" x="840" y="155" width="60" height="60" rx="15"/><text class="em" x="870" y="196" text-anchor="middle">🖼️</text><text class="lbl" x="870" y="239" text-anchor="middle">Изображение</text></g>
+        <g><rect class="node-bg" x="840" y="268" width="60" height="60" rx="15"/><text class="em" x="870" y="309" text-anchor="middle">🎬</text><text class="lbl" x="870" y="352" text-anchor="middle">Видео</text></g>
+        <g><rect class="node-bg" x="840" y="381" width="60" height="60" rx="15"/><text class="em" x="870" y="422" text-anchor="middle">🗒️</text><text class="lbl" x="870" y="465" text-anchor="middle">Заметка</text></g>
+        <rect class="ctr" x="457" y="197" width="86" height="86" rx="20"/>
+        <rect x="485" y="225" width="30" height="30" rx="8" fill="#ffffff"/>
+        <circle cx="510" cy="231" r="4.5" fill="#0028ff"/>
+        <text x="500" y="318" text-anchor="middle" style="font-family:var(--sans); font-size:17px; font-weight:600; letter-spacing:-0.02em; fill:#0a0a0a;">Modus</text>
       </svg>
+      </div>
     </div>
   </section>
 
   <!-- FEATURE: CANVAS -->
   <section class="block">
-    <div class="feat reveal">
-      <div class="feat-text">
-        <span class="eyebrow">Холст</span>
-        <h3>Бесконечный холст. <em>Думайте визуально.</em></h3>
-        <p>Раскладывайте мысли в пространстве, связывайте идеи стрелками, собирайте материалы и работайте с ними вместе.</p>
-        <ul class="feat-list">
-          <li>Стикеры, фигуры, текст, стрелки и рисование</li>
-          <li>Изображения, видео, аудио и PDF прямо на холсте</li>
-          <li>Фреймы и группировка для структуры</li>
-        </ul>
-      </div>
-      <div class="feat-media">
+    <div class="fb reveal">
+      <span class="eyebrow">01 · Холст</span>
+      <h3>Бесконечный холст. <em>Думайте визуально.</em></h3>
+      <p class="fb-sub">Раскладывайте мысли в пространстве, связывайте идеи стрелками, собирайте материалы и работайте с ними вместе.</p>
+      <ul class="fb-points">
+        <li>Стикеры, фигуры, текст и рисование</li>
+        <li>Изображения, видео, аудио и PDF на холсте</li>
+        <li>Фреймы и группировка</li>
+      </ul>
+      <div class="fb-media">
         <div class="scene"><div class="frame"><img src="modus-split.png" alt="Холст Modus" /></div></div>
       </div>
     </div>
@@ -459,20 +493,18 @@
 
   <!-- FEATURE: EDITOR -->
   <section class="block">
-    <div class="feat rev reveal">
-      <div class="feat-text">
-        <span class="eyebrow">Документ</span>
-        <h3>Пишите документы <em>и быстрые заметки.</em></h3>
-        <p>Блочный редактор как в Notion: заголовки, списки, таблицы, код и медиа. Слэш-меню под рукой.</p>
-        <ul class="feat-list">
-          <li>Заголовки, списки, таблицы, цитаты, код</li>
-          <li>Изображения, аудио и видео в тексте</li>
-          <li>Комментарии и история версий</li>
-        </ul>
-      </div>
-      <div class="feat-media">
+    <div class="fb reveal">
+      <span class="eyebrow">02 · Документ</span>
+      <h3>Пишите документы <em>и быстрые заметки.</em></h3>
+      <p class="fb-sub">Блочный редактор как в Notion: заголовки, списки, таблицы, код и медиа. Слэш-меню под рукой.</p>
+      <ul class="fb-points">
+        <li>Заголовки, списки, таблицы, цитаты, код</li>
+        <li>Изображения, аудио и видео в тексте</li>
+        <li>Комментарии и история версий</li>
+      </ul>
+      <div class="fb-media">
         <div class="media-pad pad-gray">
-          <div class="docmock">
+          <div class="docmock" style="max-width:560px; text-align:left;">
             <div class="dt">Вторник, 11 мая</div>
             <p><span class="gh">+ ⠿</span>Утро началось с трёх страниц заметок — мысли наконец улеглись по местам. Давно собирался разложить идею недели, и сегодня она встала по полочкам.</p>
             <div class="fmtbar">
@@ -496,20 +528,18 @@
 
   <!-- FEATURE: AI IN CONTEXT (hero feature) -->
   <section class="block" id="ai">
-    <div class="feat reveal">
-      <div class="feat-text">
-        <span class="eyebrow">Личный AI</span>
-        <h3>AI, который живёт там, <em>где ваша работа.</em></h3>
-        <p>Он уже знает все ваши объекты. Прикрепите холст или документ — AI читает их сам, без копирования контекста между приложениями.</p>
-        <ul class="feat-list">
-          <li>Поиск и ответы по вашим документам и холстам</li>
-          <li>Никакого «вставь сюда контекст» — он уже внутри</li>
-          <li>Лучшие модели: YandexGPT, Qwen и другие</li>
-        </ul>
-      </div>
-      <div class="feat-media">
+    <div class="fb reveal">
+      <span class="eyebrow">03 · Личный AI</span>
+      <h3>AI, который живёт там, <em>где ваша работа.</em></h3>
+      <p class="fb-sub">Он уже знает все ваши объекты. Прикрепите холст или документ — AI читает их сам, без копирования контекста между приложениями.</p>
+      <ul class="fb-points">
+        <li>Поиск и ответы по документам и холстам</li>
+        <li>Никакого «вставь сюда контекст» — он уже внутри</li>
+        <li>YandexGPT, Qwen и другие</li>
+      </ul>
+      <div class="fb-media">
         <div class="media-pad pad-blue">
-          <div class="mock">
+          <div class="mock" style="max-width:560px; text-align:left;">
             <div class="ai-q">Сделай саммари этого холста и документа со ссылками</div>
             <div class="ai-chips">
               <span class="c"><span class="dot" style="background:#0099ff"></span> холст</span>
@@ -522,71 +552,42 @@
     </div>
   </section>
 
-  <!-- FEATURE: AI MODELS -->
-  <section class="block">
-    <div class="feat rev reveal">
-      <div class="feat-text">
-        <span class="eyebrow">AI-модели</span>
-        <h3>Лучшие AI-модели — <em>в едином пространстве.</em></h3>
-        <p>Переключайтесь между моделями в один клик под конкретную задачу. Без отдельных подписок и переноса контекста.</p>
-        <ul class="feat-list">
-          <li>YandexGPT, Qwen, Claude, ChatGPT и другие</li>
-          <li>Подключите свои модели по ключу (BYOK)</li>
-          <li>Один контекст — любая модель</li>
-        </ul>
+  <!-- SECONDARY FEATURES -->
+  <section class="block" id="more">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">И это ещё не всё</span>
+      <h2>Всё для работы — <em>уже внутри</em></h2>
+    </div>
+    <div class="subgrid reveal">
+      <div class="scard wide">
+        <span class="eyebrow">Сплит-режим</span>
+        <h4>До трёх панелей в одном окне</h4>
+        <p>Документ слева, холст в центре, AI справа. Перетаскивайте объекты между панелями — контекст не теряется.</p>
+        <div class="sc-media"><div class="frame"><img src="modus-split.png" alt="Сплит-режим Modus" /></div></div>
       </div>
-      <div class="feat-media">
-        <div class="media-pad pad-indigo">
+      <div class="scard">
+        <span class="eyebrow">AI-модели</span>
+        <h4>Лучшие модели — в один клик</h4>
+        <p>YandexGPT и Qwen уже внутри, скоро — Claude и ChatGPT по вашему ключу. Один контекст — любая модель.</p>
+        <div class="sc-media">
           <div class="mpick">
             <div class="srch">🔍 Поиск модели…</div>
             <div class="row sel"><span class="ic">✦</span> YandexGPT 5.1 Pro <span class="dot"></span></div>
             <div class="row"><span class="ic">✦</span> YandexGPT 5 Lite</div>
             <div class="row"><span class="ic">◓</span> Alice AI LLM</div>
             <div class="row"><span class="ic">◈</span> Qwen3 235B</div>
-            <div class="row"><span class="ic">✦</span> Claude Opus <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:#fff;background:#ff4901;border:none;border-radius:5px;padding:2px 8px;font-weight:500;">подключить</span></div>
-            <div class="row"><span class="ic">◉</span> ChatGPT (GPT-5) <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:#fff;background:#ff4901;border:none;border-radius:5px;padding:2px 8px;font-weight:500;">подключить</span></div>
+            <div class="row"><span class="ic">✦</span> Claude Opus <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:#fff;background:#ff4901;border:none;border-radius:5px;padding:2px 8px;font-weight:500;">скоро</span></div>
+            <div class="row"><span class="ic">◉</span> ChatGPT (GPT-5) <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:#fff;background:#ff4901;border:none;border-radius:5px;padding:2px 8px;font-weight:500;">скоро</span></div>
             <div class="msel"><span class="ic" style="width:22px;height:22px;border-radius:6px;background:#e2e5ff;display:inline-flex;align-items:center;justify-content:center;font-size:12px">✦</span> YandexGPT 5.1 Pro <span class="cv">▾</span></div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- FEATURE: SPLIT -->
-  <section class="block">
-    <div class="feat reveal">
-      <div class="feat-text">
-        <span class="eyebrow">Сплит-режим</span>
-        <h3>Сплит-режим — <em>три модальности в одном окне.</em></h3>
-        <p>Документ слева, холст в центре, AI справа. Перетаскивайте объекты между панелями — контекст не теряется.</p>
-        <ul class="feat-list">
-          <li>До трёх панелей одновременно</li>
-          <li>Перенос объектов между режимами</li>
-          <li>Показывайте собеседнику только нужную панель</li>
-        </ul>
-      </div>
-      <div class="feat-media">
-        <div class="scene"><div class="frame"><img src="modus-split.png" alt="Сплит-режим Modus" /></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURE: COLLABORATION -->
-  <section class="block">
-    <div class="feat rev reveal">
-      <div class="feat-text">
+      <div class="scard">
         <span class="eyebrow">Совместная работа</span>
-        <h3>Работайте над холстом и документом <em>вместе.</em></h3>
+        <h4>Работайте вместе</h4>
         <p>Курсоры участников в реальном времени, комментарии и обсуждение прямо на объекте.</p>
-        <ul class="feat-list">
-          <li>Курсоры и стикеры участников в реальном времени</li>
-          <li>Комментарии на холсте и в документе</li>
-          <li>История версий и шеринг по ссылке</li>
-        </ul>
-      </div>
-      <div class="feat-media">
-        <div class="media-pad pad-gray">
-          <div class="collab" style="min-height:280px; background:#fbfbfc; padding:0;">
+        <div class="sc-media">
+          <div class="collab" style="min-height:240px; background:#fbfbfc; padding:0;">
             <span style="position:absolute; left:24px; top:26px; width:122px; background:#fff; border:1px solid #ececef; border-radius:8px; box-shadow:0 8px 18px -12px rgba(0,0,0,.28); padding:11px; transform:rotate(-2deg);">
               <span style="display:block;height:7px;width:60%;background:#e4e4ea;border-radius:3px;margin-bottom:8px;"></span>
               <span style="display:block;height:5px;background:#eee;border-radius:3px;margin:4px 0;"></span>
@@ -604,24 +605,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- FEATURE: PUBLISH / SHARE -->
-  <section class="block">
-    <div class="feat reveal">
-      <div class="feat-text">
+      <div class="scard">
         <span class="eyebrow">Шеринг</span>
-        <h3>Делитесь и публикуйте <em>одной ссылкой.</em></h3>
-        <p>Пригласите команду в холст или документ — или опубликуйте по ссылке для всех. Вы решаете, кто и что видит.</p>
-        <ul class="feat-list">
-          <li>Шеринг по ссылке и приглашение участников</li>
-          <li>Публикация страницы в веб</li>
-          <li>Гибкие права доступа</li>
-        </ul>
-      </div>
-      <div class="feat-media">
-        <div class="media-pad pad-gray">
+        <h4>Делитесь одной ссылкой</h4>
+        <p>Пригласите команду в холст или документ — или опубликуйте в веб. Вы решаете, кто и что видит.</p>
+        <div class="sc-media">
           <div class="sharecard">
             <div class="sh-tabs"><span class="tb">Пригласить</span><span class="tb act">Опубликовать</span></div>
             <div class="sh-url">
@@ -633,52 +621,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- FEATURE: VOICE / ASR -->
-  <section class="block">
-    <div class="feat rev reveal">
-      <div class="feat-text">
-        <span class="eyebrow">Голос</span>
-        <h3>Говорите — Modus <em>расшифрует.</em></h3>
-        <p>Запишите голосовую заметку или урок — AI превратит её в текст и краткое саммари. Запросы к AI тоже можно задавать голосом.</p>
-        <ul class="feat-list">
-          <li>Транскрипция аудио в текст</li>
-          <li>Саммари из записи встречи или урока</li>
-          <li>Голосовой ввод запросов к AI</li>
-        </ul>
-      </div>
-      <div class="feat-media">
-        <div class="media-pad pad-blue">
-          <div class="mock">
-            <div class="vpill"><span class="rec"></span><span>Запись</span>
-              <span class="wave"><i style="height:5px"></i><i style="height:12px"></i><i style="height:7px"></i><i style="height:14px"></i><i style="height:6px"></i><i style="height:11px"></i><i style="height:9px"></i><i style="height:13px"></i><i style="height:6px"></i></span>
-              <span class="t">12:30</span>
-            </div>
-            <div class="m-line" style="margin-top:14px"></div><div class="m-line w80"></div><div class="m-line w65"></div>
-            <div class="ai-r" style="margin-top:12px">Саммари: 3 ключевых вывода и список задач →</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURE: LIBRARY -->
-  <section class="block">
-    <div class="feat reveal">
-      <div class="feat-text">
+      <div class="scard">
         <span class="eyebrow">Библиотека</span>
-        <h3>Соберите всё <em>в едином пространстве.</em></h3>
-        <p>Холсты, документы, AI-чаты, PDF и файлы — в Библиотеке с поиском, избранным и фильтрами по типу.</p>
-        <ul class="feat-list">
-          <li>Грид всех объектов с превью</li>
-          <li>Избранное и фильтры по типу и автору</li>
-          <li>Хабы для проектов и команд</li>
-        </ul>
-      </div>
-      <div class="feat-media">
-        <div class="media-pad pad-gray">
+        <h4>Всё — в одной Библиотеке</h4>
+        <p>Холсты, документы, AI-чаты, PDF и файлы — с поиском, избранным и фильтрами по типу.</p>
+        <div class="sc-media">
           <div class="libgrid">
             <div class="lc"><div class="th" style="background:linear-gradient(135deg,#ffe0cc,#ffd0b0)"></div><div class="nm">Урок 2</div><div class="mt">холст</div></div>
             <div class="lc"><div class="th" style="background:linear-gradient(135deg,#d9e6ff,#c2d6ff)"></div><div class="nm">Конспект</div><div class="mt">документ</div></div>
@@ -692,6 +639,44 @@
     </div>
   </section>
 
+  <!-- USE CASES -->
+  <section class="block" id="cases">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">Примеры работ</span>
+      <h2>Что в нём <em>создают</em></h2>
+      <p>Один контекст — холст, документ и AI — собирается под вашу задачу. Вот как Modus используют каждый день.</p>
+    </div>
+    <div class="cases reveal">
+      <div class="case-col" style="--accent:#e8458f;">
+        <div class="case-head"><span class="case-ic">🎓</span> Репетиторы и преподаватели</div>
+        <ul>
+          <li>Вести урок на <b>едином холсте</b> вместе со студентами</li>
+          <li>Студенты отвечают на стикерах — AI находит ошибки и собирает упражнения на закрепление</li>
+          <li>Разбор урока превратить в конспект: <b>стикеры с холста → текст</b> в документе</li>
+          <li>Держать все материалы группы рядом — доска, PDF, заметки и AI-чат</li>
+        </ul>
+      </div>
+      <div class="case-col" style="--accent:#3b5bff;">
+        <div class="case-head"><span class="case-ic">🔬</span> Исследователи</div>
+        <ul>
+          <li>Собрать источники, PDF и заметки на <b>одном холсте</b></li>
+          <li>Выделить цитаты из PDF и перетащить в документ как опору для выводов</li>
+          <li>Спросить AI <b>по всей базе материалов</b>: что источники говорят про…</li>
+          <li>Из россыпи заметок собрать структурированный обзор</li>
+        </ul>
+      </div>
+      <div class="case-col" style="--accent:#ff4901;">
+        <div class="case-head"><span class="case-ic">📐</span> Продакт-менеджеры</div>
+        <ul>
+          <li>Провести воркшоп с командой на холсте — <b>AI фиксирует итоги и решения</b></li>
+          <li>Брейншторм со стикерами превратить в структурированный PRD</li>
+          <li>Спека, схема и AI-чат рядом — в <b>сплит-режиме</b></li>
+          <li>Восстановить логику решения по истории материалов</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <!-- CTA -->
@@ -699,7 +684,7 @@
   <div class="wrap reveal">
     <span class="eyebrow">Начать</span>
     <h2 style="margin-top:20px; margin-bottom:32px;">Рабочее пространство, которое <em>думает вместе с вами</em></h2>
-    <a href="#" class="btn-dark">Записаться на онбординг</a>
+    <a href="https://t.me/An_lis" target="_blank" rel="noopener" class="btn-dark">Записаться на онбординг</a>
     <div class="closer-note">Лично созвонимся и настроим ваше пространство</div>
   </div>
 </section>
