@@ -58,7 +58,7 @@
   .nav-cta:hover { background:var(--blue); }
 
   /* ── HERO ── */
-  .hero { padding:160px 0 70px; text-align:center; }
+  .hero { padding:118px 0 70px; text-align:center; }
   .hero .eyebrow { display:inline-block; margin-bottom:26px; }
   .hero h1 { font-family:var(--serif); font-weight:400; font-size:clamp(42px,7vw,84px); line-height:1.0; letter-spacing:-0.015em; margin-bottom:26px; }
   .hero h1 em { font-style:italic; }
@@ -372,7 +372,6 @@
     </div>
   </div>
   <div class="wrap">
-    <span class="eyebrow">Единое пространство для знаний</span>
     <h1>Думайте, создавайте<br>и решайте — <em>в едином пространстве</em></h1>
     <p class="hero-sub">Документ, холст и AI-чат вместе. Рядом с вашим личным AI, который знает всё, что вы создали в Modus.</p>
     <div class="cta-row">
@@ -409,31 +408,33 @@
 
   <!-- ALL IN ONE / BENTO -->
   <section class="block" id="how">
-    <div class="sec-head center reveal">
+    <div class="sec-head center reveal" style="max-width:820px;">
       <span class="eyebrow">Всё в одном пространстве</span>
-      <h2>Холсты, документы и <em>AI-чаты</em> — рядом, без переключений</h2>
+      <h2 style="max-width:none;">Холсты, документы и <em>AI-чаты</em> — рядом, без переключений</h2>
+      <p style="max-width:62ch;">Три ключевых инструмента — доска, документы и AI — в одном пространстве. Вы меньше переключаетесь и не теряете фокус, а все материалы хранятся в едином месте: к любому файлу можно обратиться через AI. Документы, холсты, PDF, изображения и видео живут вместе и связаны между собой — больше контекста для вас и всей команды.</p>
     </div>
-    <div class="bento reveal">
-      <div class="cell wide">
-        <div class="ic">🪧</div>
-        <div><h4>Бесконечный холст</h4><p>Раскладывайте идеи, связывайте объекты, рисуйте — как в Miro.</p></div>
-      </div>
-      <div class="cell">
-        <div class="ic">📝</div>
-        <div><h4>Документ</h4><p>Блочный редактор как в Notion.</p></div>
-      </div>
-      <div class="cell">
-        <div class="ic">🤖</div>
-        <div><h4>AI-чат</h4><p>Прямо в контексте работы.</p></div>
-      </div>
-      <div class="cell">
-        <div class="ic">▥</div>
-        <div><h4>Сплит-режим</h4><p>До трёх панелей в одном окне.</p></div>
-      </div>
-      <div class="cell wide">
-        <div class="ic">🔗</div>
-        <div><h4>Единый контекст</h4><p>Объект живёт сквозь документ, холст и AI — без копий и переносов.</p></div>
-      </div>
+    <div class="hubwrap reveal" style="margin-top:clamp(40px,5vw,72px);">
+      <svg class="hub" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ln" d="M170 80 C 330 80, 360 230, 454 230"/>
+        <path class="ln" d="M170 180 C 330 180, 370 230, 454 230"/>
+        <path class="ln" d="M170 290 C 330 290, 370 230, 454 230"/>
+        <path class="ln" d="M170 390 C 330 390, 360 230, 454 230"/>
+        <path class="ln" d="M830 80 C 670 80, 640 230, 546 230"/>
+        <path class="ln" d="M830 180 C 670 180, 630 230, 546 230"/>
+        <path class="ln" d="M830 290 C 670 290, 630 230, 546 230"/>
+        <path class="ln" d="M830 390 C 670 390, 640 230, 546 230"/>
+        <g><rect class="node-bg" x="106" y="56" width="48" height="48" rx="12"/><text class="em" x="130" y="88" text-anchor="middle">📝</text><text class="lbl" x="130" y="122" text-anchor="middle">Документ</text></g>
+        <g><rect class="node-bg" x="106" y="156" width="48" height="48" rx="12"/><text class="em" x="130" y="188" text-anchor="middle">🪧</text><text class="lbl" x="130" y="222" text-anchor="middle">Холст</text></g>
+        <g><rect class="node-bg" x="106" y="266" width="48" height="48" rx="12"/><text class="em" x="130" y="298" text-anchor="middle">📄</text><text class="lbl" x="130" y="332" text-anchor="middle">PDF</text></g>
+        <g><rect class="node-bg" x="106" y="366" width="48" height="48" rx="12"/><text class="em" x="130" y="398" text-anchor="middle">🎵</text><text class="lbl" x="130" y="432" text-anchor="middle">Аудио</text></g>
+        <g><rect class="node-bg" x="846" y="56" width="48" height="48" rx="12"/><text class="em" x="870" y="88" text-anchor="middle">🤖</text><text class="lbl" x="870" y="122" text-anchor="middle">AI-чат</text></g>
+        <g><rect class="node-bg" x="846" y="156" width="48" height="48" rx="12"/><text class="em" x="870" y="188" text-anchor="middle">🖼️</text><text class="lbl" x="870" y="222" text-anchor="middle">Изображение</text></g>
+        <g><rect class="node-bg" x="846" y="266" width="48" height="48" rx="12"/><text class="em" x="870" y="298" text-anchor="middle">🎬</text><text class="lbl" x="870" y="332" text-anchor="middle">Видео</text></g>
+        <g><rect class="node-bg" x="846" y="366" width="48" height="48" rx="12"/><text class="em" x="870" y="398" text-anchor="middle">🗒️</text><text class="lbl" x="870" y="432" text-anchor="middle">Заметка</text></g>
+        <rect class="ctr" x="468" y="198" width="64" height="64" rx="16"/>
+        <rect x="489" y="219" width="22" height="22" rx="6" fill="#ffffff"/>
+        <circle cx="507" cy="223" r="3.5" fill="#0028ff"/>
+      </svg>
     </div>
   </section>
 
@@ -542,8 +543,8 @@
             <div class="row"><span class="ic">✦</span> YandexGPT 5 Lite</div>
             <div class="row"><span class="ic">◓</span> Alice AI LLM</div>
             <div class="row"><span class="ic">◈</span> Qwen3 235B</div>
-            <div class="row"><span class="ic">✦</span> Claude Opus <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:1px 6px;">подключить</span></div>
-            <div class="row"><span class="ic">◉</span> ChatGPT (GPT-5) <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint);border:1px solid var(--line);border-radius:5px;padding:1px 6px;">подключить</span></div>
+            <div class="row"><span class="ic">✦</span> Claude Opus <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:#fff;background:#ff4901;border:none;border-radius:5px;padding:2px 8px;font-weight:500;">подключить</span></div>
+            <div class="row"><span class="ic">◉</span> ChatGPT (GPT-5) <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:#fff;background:#ff4901;border:none;border-radius:5px;padding:2px 8px;font-weight:500;">подключить</span></div>
             <div class="msel"><span class="ic" style="width:22px;height:22px;border-radius:6px;background:#e2e5ff;display:inline-flex;align-items:center;justify-content:center;font-size:12px">✦</span> YandexGPT 5.1 Pro <span class="cv">▾</span></div>
           </div>
         </div>
@@ -691,79 +692,15 @@
     </div>
   </section>
 
-  <!-- HUB DIAGRAM -->
-  <section class="block">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">Единый контекст</span>
-      <h2>Все объекты — <em>в одном пространстве.</em></h2>
-      <p>Документ, холст, AI-чат, PDF, изображения и видео живут вместе и связаны между собой — без копий и переключений.</p>
-    </div>
-    <div class="hubwrap reveal">
-      <svg class="hub" viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- connectors -->
-        <path class="ln" d="M170 80 C 330 80, 360 230, 454 230"/>
-        <path class="ln" d="M170 180 C 330 180, 370 230, 454 230"/>
-        <path class="ln" d="M170 290 C 330 290, 370 230, 454 230"/>
-        <path class="ln" d="M170 390 C 330 390, 360 230, 454 230"/>
-        <path class="ln" d="M830 80 C 670 80, 640 230, 546 230"/>
-        <path class="ln" d="M830 180 C 670 180, 630 230, 546 230"/>
-        <path class="ln" d="M830 290 C 670 290, 630 230, 546 230"/>
-        <path class="ln" d="M830 390 C 670 390, 640 230, 546 230"/>
-        <!-- left nodes -->
-        <g><rect class="node-bg" x="106" y="56" width="48" height="48" rx="12"/><text class="em" x="130" y="88" text-anchor="middle">📝</text><text class="lbl" x="130" y="122" text-anchor="middle">Документ</text></g>
-        <g><rect class="node-bg" x="106" y="156" width="48" height="48" rx="12"/><text class="em" x="130" y="188" text-anchor="middle">🪧</text><text class="lbl" x="130" y="222" text-anchor="middle">Холст</text></g>
-        <g><rect class="node-bg" x="106" y="266" width="48" height="48" rx="12"/><text class="em" x="130" y="298" text-anchor="middle">📄</text><text class="lbl" x="130" y="332" text-anchor="middle">PDF</text></g>
-        <g><rect class="node-bg" x="106" y="366" width="48" height="48" rx="12"/><text class="em" x="130" y="398" text-anchor="middle">🎵</text><text class="lbl" x="130" y="432" text-anchor="middle">Аудио</text></g>
-        <!-- right nodes -->
-        <g><rect class="node-bg" x="846" y="56" width="48" height="48" rx="12"/><text class="em" x="870" y="88" text-anchor="middle">🤖</text><text class="lbl" x="870" y="122" text-anchor="middle">AI-чат</text></g>
-        <g><rect class="node-bg" x="846" y="156" width="48" height="48" rx="12"/><text class="em" x="870" y="188" text-anchor="middle">🖼️</text><text class="lbl" x="870" y="222" text-anchor="middle">Изображение</text></g>
-        <g><rect class="node-bg" x="846" y="266" width="48" height="48" rx="12"/><text class="em" x="870" y="298" text-anchor="middle">🎬</text><text class="lbl" x="870" y="332" text-anchor="middle">Видео</text></g>
-        <g><rect class="node-bg" x="846" y="366" width="48" height="48" rx="12"/><text class="em" x="870" y="398" text-anchor="middle">🗒️</text><text class="lbl" x="870" y="432" text-anchor="middle">Заметка</text></g>
-        <!-- center Modus -->
-        <rect class="ctr" x="468" y="198" width="64" height="64" rx="16"/>
-        <rect x="489" y="219" width="22" height="22" rx="6" fill="#ffffff"/>
-        <circle cx="507" cy="223" r="3.5" fill="#0028ff"/>
-      </svg>
-    </div>
-  </section>
-
-  <!-- AUDIENCE -->
-  <section class="block" id="who">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">Для кого</span>
-      <h2>Создан для тех, кто работает <em>со знанием</em></h2>
-    </div>
-    <div class="aud reveal">
-      <a href="landing-teachers.html">
-        <div class="tag">Преподаватели</div>
-        <h4>Учите, а не переключайтесь</h4>
-        <p>Урок, доска и AI рядом — показывайте ученику только нужное.</p>
-        <div class="go">Открыть</div>
-      </a>
-      <a href="landing-researchers.html">
-        <div class="tag">Исследователи</div>
-        <h4>Собирайте знание в систему</h4>
-        <p>Источники, заметки и AI с поиском по вашим материалам.</p>
-        <div class="go">Открыть</div>
-      </a>
-      <a href="landing-pm.html">
-        <div class="tag">Продакт-менеджеры</div>
-        <h4>Думайте, а не собирайте контекст</h4>
-        <p>Документы, схемы и AI в одном пространстве продукта.</p>
-        <div class="go">Открыть</div>
-      </a>
-    </div>
-  </section>
 </div>
 
 <!-- CTA -->
 <section class="closer" id="signup">
   <div class="wrap reveal">
     <span class="eyebrow">Начать</span>
-    <h2 style="margin-top:20px; margin-bottom:18px;">Рабочее пространство, которое <em>думает вместе с вами</em></h2>
-    <p style="font-size:clamp(18px,2vw,22px); color:var(--muted); max-width:26ch; margin:0 auto 32px; line-height:1.4;">Всегда готово, когда нужно.</p>
+    <h2 style="margin-top:20px; margin-bottom:32px;">Рабочее пространство, которое <em>думает вместе с вами</em></h2>
     <a href="#" class="btn-dark">Записаться на онбординг</a>
-    <div class="closer-note">30 минут · бесплатно · ваш процесс, ваши задачи</div>
+    <div class="closer-note">Лично созвонимся и настроим ваше пространство</div>
   </div>
 </section>
 
